@@ -248,7 +248,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Components\Distro\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -267,6 +266,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YouTrackSharp\YouTrackSharp.csproj">
+      <Project>{4e8c522a-20d3-474f-87b7-c5fba96dfff3}</Project>
+      <Name>YouTrackSharp</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

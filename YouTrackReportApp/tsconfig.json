@@ -9,7 +9,7 @@
   },
   "include": [
     //"./Scripts/src/components/*"
-      "./Components/Source/*"
+      "./Components/Source/*" 
     //"./Scripts/typings/**/*"
   ],
   "exclude": [
