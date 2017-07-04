@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YouTrackReportsApp", "YouTrackReportApp\YouTrackReportsApp.csproj", "{E159668D-4C2D-42A8-BD52-3FBFB70D3139}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YouTrackSharp", "..\..\Downloads\YouTrackSharp-master\YouTrackSharp-master\src\YouTrackSharp\YouTrackSharp.csproj", "{4E8C522A-20D3-474F-87B7-C5FBA96DFFF3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YouTrackSharp", "YouTrackSharp\YouTrackSharp.csproj", "{4E8C522A-20D3-474F-87B7-C5FBA96DFFF3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
