@@ -1,5 +1,7 @@
 ﻿import * as React from "react";
 import * as ReactDOM from "react-dom";
+import { connect } from "react-redux";
+
 import { ReportNavbar } from "../Source/ReportNavbar";
 import { ProjectInfo } from "../Source/ProjectInfo";
 import { ReportContent } from "../Source/ReportContent";
@@ -15,3 +17,10 @@ export class YouTrackReportsApp extends React.Component<{}, {}>
         );
     }
 }
+
+export default connect(
+    state => ({
+        test: state
+    }),
+    dispatch => ({})
+)(YouTrackReportsApp);
