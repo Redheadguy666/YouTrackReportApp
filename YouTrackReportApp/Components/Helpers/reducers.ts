@@ -3,12 +3,19 @@ import { ADD_TODO, TOGGLE_TODO, SET_VISIBILITY_FILTER, VisibilityFilters } from 
 
 const { SHOW_ALL } = VisibilityFilters;
 
-function visibilityFilter(state = SHOW_ALL, action)
+const initialState = {
+    visibilityFilter: VisibilityFilters.SHOW_ALL,
+    todos: ["Один", "Два", "Три"]
+}
+
+function visibilityFilter(state = initialState, action)
 {
     switch (action.type)
     {
         case SET_VISIBILITY_FILTER:
-            return action.filter;
+            return Object.assign({}, state, {
+                visibilityFilter: action.filter
+            });
         default:
             return state;
     }
