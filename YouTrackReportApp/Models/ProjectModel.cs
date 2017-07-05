@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using YouTrackSharp.Infrastructure;
 using YouTrackSharp.Projects;
 
 namespace YouTrackReports.Models
@@ -21,12 +22,21 @@ namespace YouTrackReports.Models
             this.Name = project.Name;
 
             var versionBundleName = project.VersionBundleName();
-            var projectVersions = projectManager.GetVersions(versionBundleName).ToList();
 
-            foreach (var version in projectVersions)
+            try
             {
-                this.Versions.Add(version.Name);
+                var projectVersions = projectManager.GetVersions(project).ToList();
+
+                foreach (var version in projectVersions)
+                {
+                    this.Versions.Add(version.Name);
+                }
             }
+            catch (InvalidRequestException)
+            {
+                this.Versions = null;
+            }
+
         }
     }
 }
