@@ -5,8 +5,7 @@ import { createStore } from "redux";
 
 import { YouTrackReportsApp } from "../Source/App"
 import todoApp from "../Helpers/reducers";
-import { addTodo, toggleTodo } from "../Helpers/actions";
-
+import { getProjectsAction, getReportAction } from "../Helpers/actions";
 
 const store = createStore(todoApp);
 
@@ -20,8 +19,8 @@ store.subscribe(() => {
     console.log("store changed!", store.getState());
 });
 
-store.dispatch(addTodo("Some data to display..."));
-store.dispatch(toggleTodo(5));
+store.dispatch(getProjectsAction());
+store.dispatch(getReportAction());
 
 ReactDOM.render
     (

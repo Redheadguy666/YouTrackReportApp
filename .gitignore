@@ -242,3 +242,5 @@ ModelManifest.xml
 .fake/
 /YouTrackReportApp/Components/Distro/Helpers
 /YouTrackReportApp/Components/Distro/Source
+/YouTrackReportApp/Components/Distro/Models/ProjectModel.js
+/YouTrackReportApp/Components/Distro/Models/ProjectModel.js.map

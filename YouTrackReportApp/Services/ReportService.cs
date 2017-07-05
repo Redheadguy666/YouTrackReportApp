@@ -66,21 +66,12 @@ namespace YouTrackReportsApp.Services
         public List<ProjectModel> GetProjects()
         {
             var projectManager = new ProjectManagement(YouTrackDataService.Connection);
-            var projects = new List<Project>();
 
             var allProjects = projectManager.GetProjects().ToList();
 
-            foreach (var project in allProjects)
-            {
-                if (Regex.IsMatch(project.Name, "^Docsvision"))
-                {
-                    projects.Add(project);
-                }
-            }
-
             var projectModels = new List<ProjectModel>();
 
-            foreach (var project in projects)
+            foreach (var project in allProjects)
             {
                 var projectModel = new ProjectModel();
                 projectModel.Initialize(project, projectManager);

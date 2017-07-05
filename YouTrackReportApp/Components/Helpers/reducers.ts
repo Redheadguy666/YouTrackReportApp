@@ -1,38 +1,33 @@
 ﻿import { combineReducers } from "redux";
-import { ADD_TODO, TOGGLE_TODO, SET_VISIBILITY_FILTER, VisibilityFilters } from "../Helpers/actions";
+import { GET_PROJECTS, GET_REPORT } from "../Helpers/actions";
 
-const { SHOW_ALL } = VisibilityFilters;
-
-function visibilityFilter(state = SHOW_ALL, action)
+function getProjects(state, action)
 {
     switch (action.type)
     {
-        case SET_VISIBILITY_FILTER:
-            return Object.assign({}, state, {
-                visibilityFilter: action.filter
-            });
+        case GET_PROJECTS:
+            //return Object.assign({}, state, {
+            //    visibilityFilter: action.filter
+            //});
         default:
             return state;
     }
 }
 
-function todos(state = [], action)
+function getReport(state, action)
 {
     switch (action.type)
     {
-        case ADD_TODO:
-            return [state, { text: action.text }]
-
-        case TOGGLE_TODO:
-            return [state, {text: action.index + " was accepted"}]
-
-        default: return state;     
+        case GET_REPORT:
+            //return [state, { text: action.text }]
+        default:
+            return state;     
     }
 }
 
-export const todoApp = combineReducers({
-    visibilityFilter,
-    todos
+export const YouTrackReportsApp = combineReducers({
+    getProjects,
+    getReport
 });
 
-export default todoApp;
+export default YouTrackReportsApp;

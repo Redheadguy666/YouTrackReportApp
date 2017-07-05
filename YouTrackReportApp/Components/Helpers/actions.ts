@@ -1,25 +1,14 @@
-﻿export const ADD_TODO = "ADD_TODO";
-export const TOGGLE_TODO = "TOGGLE_TODO";
-export const SET_VISIBILITY_FILTER = "SET_VISIBILITY_FILTER";
+﻿export const GET_PROJECTS = "GET_PROJECTS";
+export const GET_REPORT = "GET_REPORT";
 
-export const VisibilityFilters =
+import ProjectModel from "../Models/ProjectModel";
+
+export function getProjectsAction()
 {
-    SHOW_ALL: "SHOW_ALL",
-    SHOW_COMPLETED: "SHOW_COMPLETED",
-    SHOW_ACTIVE: "SHOW_ACTIVE"
+    return { type: GET_PROJECTS }
 }
 
-export function addTodo(text)
+export function getReportAction(projectModel: ProjectModel)
 {
-    return { type: ADD_TODO, text }
-}
-
-export function toggleTodo(index)
-{
-    return { type: TOGGLE_TODO, index }
-}
-
-export function setVisibilityFilter(filter)
-{
-    return{ type: SET_VISIBILITY_FILTER, filter }
+    return { type: GET_REPORT, project: projectModel }
 }
