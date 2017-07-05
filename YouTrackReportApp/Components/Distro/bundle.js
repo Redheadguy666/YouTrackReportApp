@@ -11283,6 +11283,11 @@ const App_1 = __webpack_require__(226);
 const reducers_1 = __webpack_require__(232);
 const actions_1 = __webpack_require__(97);
 const store = redux_1.createStore(reducers_1.default);
+let initialState = {
+    user: "fsfs",
+    age: 23
+};
+//Подписались на экшен
 store.subscribe(() => {
     console.log("store changed!", store.getState());
 });
@@ -24926,11 +24931,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const redux_1 = __webpack_require__(52);
 const actions_1 = __webpack_require__(97);
 const { SHOW_ALL } = actions_1.VisibilityFilters;
-const initialState = {
-    visibilityFilter: actions_1.VisibilityFilters.SHOW_ALL,
-    todos: ["Один", "Два", "Три"]
-};
-function visibilityFilter(state = initialState, action) {
+function visibilityFilter(state = SHOW_ALL, action) {
     switch (action.type) {
         case actions_1.SET_VISIBILITY_FILTER:
             return Object.assign({}, state, {

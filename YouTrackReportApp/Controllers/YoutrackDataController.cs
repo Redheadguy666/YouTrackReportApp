@@ -30,6 +30,7 @@ namespace YouTrackReportsApp.Controllers
 
         [Inject]
         public IReportService ReportService { get; set; }
+
         [ActionName("GetReport")]
         public string GetReport(string projectName, string projectVersion)
         {
@@ -37,6 +38,14 @@ namespace YouTrackReportsApp.Controllers
 
             return this.JsonSerializeObject(productionReport);
         }
+
+        [ActionName("GetProjects")]
+        public string GetProjects()
+        {
+            var projects = this.ReportService.GetProjects();
+            return this.JsonSerializeObject(projects);
+        }
+
         private string JsonSerializeObject(object data)
         {
             return JsonConvert.SerializeObject(data, Formatting.None, this.JsonSerializerSettings);

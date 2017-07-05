@@ -180,6 +180,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\IssueModel.cs" />
+    <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="Models\WorkItemModel.cs" />
     <Compile Include="Models\Youtrack\IndividualEmploymentModel.cs" />
     <Compile Include="Models\Youtrack\IndividualEmploymentTable.cs" />

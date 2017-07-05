@@ -1,5 +1,7 @@
 ﻿using Ninject;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using YouTrackReports.Models;
 using YouTrackReports.Models.Youtrack;
@@ -13,8 +15,11 @@ namespace YouTrackReportsApp.Services
     {
         [Inject]
         public IYouTrackDataService YouTrackDataService_ { get; set; }
-        public ReportModel GetProductionReport(string projectName, string projectVersion)
+        public ReportModel GetProductionReport(string projectName_, string projectVersion_)
         {
+            var projectName = "WebC";
+            var projectVersion = "Web-client 5.4.9";
+
             var projectManager = new ProjectManagement(YouTrackDataService.Connection);
             var project = projectManager.GetProjects().ToList().First(p => p.ShortName == projectName);
 
@@ -57,6 +62,32 @@ namespace YouTrackReportsApp.Services
             productionReport.SummaryInformation.SummaryModel.SumPlanningMark = sumPlannigMark;
 
             return productionReport;
+        }
+        public List<ProjectModel> GetProjects()
+        {
+            var projectManager = new ProjectManagement(YouTrackDataService.Connection);
+            var projects = new List<Project>();
+
+            var allProjects = projectManager.GetProjects().ToList();
+
+            foreach (var project in allProjects)
+            {
+                if (Regex.IsMatch(project.Name, "^Docsvision"))
+                {
+                    projects.Add(project);
+                }
+            }
+
+            var projectModels = new List<ProjectModel>();
+
+            foreach (var project in projects)
+            {
+                var projectModel = new ProjectModel();
+                projectModel.Initialize(project, projectManager);
+                projectModels.Add(projectModel);
+            }
+
+            return projectModels;
         }
     }
 }
