@@ -10,15 +10,15 @@ import ProjectModel from "../Models/ProjectModel";
 
 const store = createStore(YouTrackReports);
 
-let projectModel: ProjectModel = {
-    projectName: "Browser",
-    projectVersion: "34"
-}
-
 //Подписались на экшен
 store.subscribe(() => {
     console.log("store changed!", store.getState());
 });
+
+let projectModel: ProjectModel = {
+    projectName: "WebC",
+    projectVersion: "Web-client 5.4.9"
+}
 
 store.dispatch(getProjectsAction());
 store.dispatch(getReportAction(projectModel));

@@ -11660,12 +11660,13 @@ exports.GET_PROJECTS = "GET_PROJECTS";
 exports.GET_REPORT = "GET_REPORT";
 const axios_1 = __webpack_require__(240);
 function getProjectsAction() {
-    const request = axios_1.default.get("YouTrackData/GetProjects");
-    return { type: exports.GET_PROJECTS, payload: request };
+    const projectsRequest = axios_1.default.get("YouTrackData/GetProjects");
+    return { type: exports.GET_PROJECTS, payload: projectsRequest };
 }
 exports.getProjectsAction = getProjectsAction;
 function getReportAction(projectModel) {
-    return { type: exports.GET_REPORT, project: projectModel };
+    const reportRequest = axios_1.default.get("YouTrackData/GetReport");
+    return { type: exports.GET_REPORT, payload: reportRequest };
 }
 exports.getReportAction = getReportAction;
 
@@ -11954,14 +11955,14 @@ const App_1 = __webpack_require__(233);
 const reducers_1 = __webpack_require__(239);
 const actions_1 = __webpack_require__(99);
 const store = redux_1.createStore(reducers_1.default);
-let projectModel = {
-    projectName: "Browser",
-    projectVersion: "34"
-};
 //Подписались на экшен
 store.subscribe(() => {
     console.log("store changed!", store.getState());
 });
+let projectModel = {
+    projectName: "WebC",
+    projectVersion: "Web-client 5.4.9"
+};
 store.dispatch(actions_1.getProjectsAction());
 store.dispatch(actions_1.getReportAction(projectModel));
 ReactDOM.render(React.createElement(react_redux_1.Provider, { store: store },
@@ -25425,16 +25426,27 @@ const react_redux_1 = __webpack_require__(88);
 const ReportNavbar_1 = __webpack_require__(234);
 const ReportContent_1 = __webpack_require__(235);
 class YouTrackReportsApp extends React.Component {
+    constructor() {
+        super(...arguments);
+        this.props = {};
+    }
+    componentDidMount() {
+        //alert("App is ready!");
+        //this.props.dispatch(getProjectsAction());
+    }
     render() {
+        //let projects: JSX.Element[] = this.props.projects ? this.props.projects.map((project: ProjectModel) =>
+        //    <li>{project.projectName} - {project.projectVersion}</li>) : null;
         return (React.createElement("div", null,
             React.createElement(ReportNavbar_1.ReportNavbar, null),
             React.createElement(ReportContent_1.ReportContent, null)));
     }
 }
 exports.YouTrackReportsApp = YouTrackReportsApp;
-exports.default = react_redux_1.connect(state => ({
-    test: state
-}), dispatch => ({}))(YouTrackReportsApp);
+const mapStateToProps = state => ({
+    projects: state.projects
+});
+exports.default = react_redux_1.connect(mapStateToProps)(YouTrackReportsApp);
 
 
 /***/ }),
@@ -25609,11 +25621,10 @@ function getProjects(state = [], action) {
             return state;
     }
 }
-function getReport(state = {}, action) {
+function getReport(state = [], action) {
     switch (action.type) {
         case actions_1.GET_REPORT:
-            console.log(action.text);
-        //return [state, { text: action.text }]
+            return Object.assign({}, state, { report: action.payload });
         default:
             return state;
     }

@@ -6,12 +6,14 @@ import axios from "axios";
 
 export function getProjectsAction()
 {
-    const request = axios.get("YouTrackData/GetProjects");
+    const projectsRequest = axios.get("YouTrackData/GetProjects");
 
-    return { type: GET_PROJECTS, payload: request }
+    return { type: GET_PROJECTS, payload: projectsRequest }
 }
 
 export function getReportAction(projectModel: ProjectModel)
 {
-    return { type: GET_REPORT, project: projectModel }
+    const reportRequest = axios.get("YouTrackData/GetReport");
+
+    return { type: GET_REPORT, payload: reportRequest }
 }
