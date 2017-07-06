@@ -6,12 +6,10 @@ function getProjects(state = [], action)
     switch (action.type)
     {
         case GET_PROJECTS:
-            return [
+            return {
                 ...state,
-                {
-                    name: action.type
-                }
-            ]
+                projects: action.payload
+            }
         default:
             return state;
     }
