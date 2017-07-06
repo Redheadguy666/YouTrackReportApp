@@ -1,33 +1,37 @@
 ﻿import { combineReducers } from "redux";
 import { GET_PROJECTS, GET_REPORT } from "../Helpers/actions";
 
-function getProjects(state, action)
+function getProjects(state = [], action)
 {
     switch (action.type)
     {
         case GET_PROJECTS:
-            //return Object.assign({}, state, {
-            //    visibilityFilter: action.filter
-            //});
+            return [
+                ...state,
+                {
+                    name: action.type
+                }
+            ]
         default:
             return state;
     }
 }
 
-function getReport(state, action)
+function getReport(state = {}, action)
 {
     switch (action.type)
     {
         case GET_REPORT:
+            console.log(action.text);
             //return [state, { text: action.text }]
         default:
             return state;     
     }
 }
 
-export const YouTrackReportsApp = combineReducers({
+export const YouTrackReports = combineReducers({
     getProjects,
     getReport
 });
 
-export default YouTrackReportsApp;
+export default YouTrackReports;

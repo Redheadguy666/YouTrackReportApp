@@ -11246,26 +11246,16 @@ function verifyPlainObject(value, displayName, methodName) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ADD_TODO = "ADD_TODO";
-exports.TOGGLE_TODO = "TOGGLE_TODO";
-exports.SET_VISIBILITY_FILTER = "SET_VISIBILITY_FILTER";
-exports.VisibilityFilters = {
-    SHOW_ALL: "SHOW_ALL",
-    SHOW_COMPLETED: "SHOW_COMPLETED",
-    SHOW_ACTIVE: "SHOW_ACTIVE"
-};
-function addTodo(text) {
-    return { type: exports.ADD_TODO, text };
+exports.GET_PROJECTS = "GET_PROJECTS";
+exports.GET_REPORT = "GET_REPORT";
+function getProjectsAction() {
+    return { type: exports.GET_PROJECTS };
 }
-exports.addTodo = addTodo;
-function toggleTodo(index) {
-    return { type: exports.TOGGLE_TODO, index };
+exports.getProjectsAction = getProjectsAction;
+function getReportAction(projectModel) {
+    return { type: exports.GET_REPORT, project: projectModel };
 }
-exports.toggleTodo = toggleTodo;
-function setVisibilityFilter(filter) {
-    return { type: exports.SET_VISIBILITY_FILTER, filter };
-}
-exports.setVisibilityFilter = setVisibilityFilter;
+exports.getReportAction = getReportAction;
 
 
 /***/ }),
@@ -11283,16 +11273,16 @@ const App_1 = __webpack_require__(226);
 const reducers_1 = __webpack_require__(232);
 const actions_1 = __webpack_require__(97);
 const store = redux_1.createStore(reducers_1.default);
-let initialState = {
-    user: "fsfs",
-    age: 23
+let projectModel = {
+    projectName: "Browser",
+    projectVersion: "34"
 };
 //Подписались на экшен
 store.subscribe(() => {
     console.log("store changed!", store.getState());
 });
-store.dispatch(actions_1.addTodo("Some data to display..."));
-store.dispatch(actions_1.toggleTodo(5));
+store.dispatch(actions_1.getProjectsAction());
+store.dispatch(actions_1.getReportAction(projectModel));
 ReactDOM.render(React.createElement(react_redux_1.Provider, { store: store },
     React.createElement(App_1.YouTrackReportsApp, null)), document.getElementById("YouTrackReportsApp"));
 
@@ -24930,31 +24920,33 @@ exports.ReportSummary = ReportSummary;
 Object.defineProperty(exports, "__esModule", { value: true });
 const redux_1 = __webpack_require__(52);
 const actions_1 = __webpack_require__(97);
-const { SHOW_ALL } = actions_1.VisibilityFilters;
-function visibilityFilter(state = SHOW_ALL, action) {
+function getProjects(state = [], action) {
     switch (action.type) {
-        case actions_1.SET_VISIBILITY_FILTER:
-            return Object.assign({}, state, {
-                visibilityFilter: action.filter
-            });
+        case actions_1.GET_PROJECTS:
+            return [
+                ...state,
+                {
+                    name: action.type
+                }
+            ];
         default:
             return state;
     }
 }
-function todos(state = [], action) {
+function getReport(state = {}, action) {
     switch (action.type) {
-        case actions_1.ADD_TODO:
-            return [state, { text: action.text }];
-        case actions_1.TOGGLE_TODO:
-            return [state, { text: action.index + " was accepted" }];
-        default: return state;
+        case actions_1.GET_REPORT:
+            console.log(action.text);
+        //return [state, { text: action.text }]
+        default:
+            return state;
     }
 }
-exports.todoApp = redux_1.combineReducers({
-    visibilityFilter,
-    todos
+exports.YouTrackReports = redux_1.combineReducers({
+    getProjects,
+    getReport
 });
-exports.default = exports.todoApp;
+exports.default = exports.YouTrackReports;
 
 
 /***/ })

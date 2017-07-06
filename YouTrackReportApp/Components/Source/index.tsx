@@ -3,15 +3,16 @@ import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 
-import { YouTrackReportsApp } from "../Source/App"
-import todoApp from "../Helpers/reducers";
+import { YouTrackReportsApp } from "../Source/App";
+import YouTrackReports from "../Helpers/reducers";
 import { getProjectsAction, getReportAction } from "../Helpers/actions";
+import ProjectModel from "../Models/ProjectModel";
 
-const store = createStore(todoApp);
+const store = createStore(YouTrackReports);
 
-let initialState = {
-    user: "fsfs",
-    age: 23
+let projectModel: ProjectModel = {
+    projectName: "Browser",
+    projectVersion: "34"
 }
 
 //Подписались на экшен
@@ -20,7 +21,7 @@ store.subscribe(() => {
 });
 
 store.dispatch(getProjectsAction());
-store.dispatch(getReportAction());
+store.dispatch(getReportAction(projectModel));
 
 ReactDOM.render
     (
