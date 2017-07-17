@@ -6,23 +6,33 @@ import { ProjectModel } from "../Models/ProjectModel";
 
 interface IReportContentState
 {
-    projects: ProjectModel[]
+    projects?: ProjectModel[]
 }
 
 export class ReportContent extends React.Component<{}, {}>
 {
+    state: IReportContentState = {} as any;
 
-    getProjects() {
-        $.get("YoutrackData/GetProjects", (projects) => {
-
-        })
+    constructor(props: any) {
+        super(props);
     }
 
+    componentWillMount() {
+        this.getReports();
+    }
+
+    getReports() {
+        $.get("YouTrackData/GetProjects", (response) => {
+            this.setState({
+                projects: response
+            })
+        }, "json");
+    }
 
     render() {
         return (
             <div>
-                <ProjectInfo />
+                <ProjectInfo recievedProjects={this.state.projects}/>
                 <ReportTable />
                 <ReportSummary />
             </div>

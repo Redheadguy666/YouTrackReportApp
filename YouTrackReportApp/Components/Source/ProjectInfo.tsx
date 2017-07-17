@@ -1,12 +1,45 @@
 ﻿import * as React from "react";
+import { ProjectModel } from "../Models/ProjectModel";
 
-export class ProjectInfo extends React.Component<{}, {}>
+interface IProjectInfoProps
 {
-    getReport(projectName: string, projectVersion) {
+    recievedProjects: ProjectModel[];
+}
+
+interface IProjectInfoState
+{
+    projectVersions: string[];
+}
+
+export class ProjectInfo extends React.Component<IProjectInfoProps, {}>
+{
+    state: IProjectInfoState = {} as any;
+
+    constructor(props: any) {
+        super(props);
+        this.handleSelectChanged = this.handleSelectChanged.bind(this);
+        this.getVersions = this.getVersions.bind(this);
     }
 
+    getVersions(projectName: string) {
+        this.setState({
+            projectVersions: this.props.recievedProjects
+                .find((project) => project.name == projectName).versions
+        });
+    }
+
+    handleSelectChanged(event: any) {
+        this.getVersions(event.target.value);
+    }
 
     render() {
+
+        let projects: JSX.Element[] = this.props.recievedProjects ? this.props.recievedProjects.map((project) => 
+            <option key={project.id}>{project.name}</option>) : null;
+
+        let projectVersions: JSX.Element[] = this.state.projectVersions ? this.state.projectVersions.map((version) =>
+            <option key={version}>{version}</option>) : null;
+
         return (
             <div>
                 <table className="table table-bordered">
@@ -20,10 +53,8 @@ export class ProjectInfo extends React.Component<{}, {}>
                         <tr>
                             <td>Проект:</td>
                             <td>
-                                <select className="form-control">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
+                                <select className="form-control" onChange={this.handleSelectChanged}>
+                                    {projects}
                                 </select>
                             </td>
                         </tr>
@@ -31,9 +62,7 @@ export class ProjectInfo extends React.Component<{}, {}>
                             <td>Версия продукта:</td>
                             <td>
                                 <select className="form-control">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
+                                    {projectVersions}
                                 </select>
                             </td>
                         </tr>

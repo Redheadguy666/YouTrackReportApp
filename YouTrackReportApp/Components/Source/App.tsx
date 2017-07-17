@@ -4,16 +4,11 @@ import * as ReactDOM from "react-dom";
 import { ReportNavbar } from "../Source/ReportNavbar";
 import { ProjectInfo } from "../Source/ProjectInfo";
 import { ReportContent } from "../Source/ReportContent";
+import { ProjectModel } from "../Models/ProjectModel";
 
-interface IYouTrackReportsAppProps
-{
-    hello?: any;
-}
-
-export class YouTrackReportsApp extends React.Component<IYouTrackReportsAppProps, {}>
+export class YouTrackReportsApp extends React.Component<{}, {}>
 {
     render() {
-        console.log(this.props.hello);
         return (
             <div>
                 <ReportNavbar />

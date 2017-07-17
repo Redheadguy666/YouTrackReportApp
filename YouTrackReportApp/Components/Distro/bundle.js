@@ -22403,7 +22403,6 @@ const ReportNavbar_1 = __webpack_require__(185);
 const ReportContent_1 = __webpack_require__(186);
 class YouTrackReportsApp extends React.Component {
     render() {
-        console.log(this.props.hello);
         return (React.createElement("div", null,
             React.createElement(ReportNavbar_1.ReportNavbar, null),
             React.createElement(ReportContent_1.ReportContent, null)));
@@ -22456,9 +22455,23 @@ const ProjectInfo_1 = __webpack_require__(187);
 const ReportTable_1 = __webpack_require__(188);
 const ReportSummary_1 = __webpack_require__(189);
 class ReportContent extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+    componentWillMount() {
+        this.getReports();
+    }
+    getReports() {
+        $.get("YouTrackData/GetProjects", (response) => {
+            this.setState({
+                projects: response
+            });
+        }, "json");
+    }
     render() {
         return (React.createElement("div", null,
-            React.createElement(ProjectInfo_1.ProjectInfo, null),
+            React.createElement(ProjectInfo_1.ProjectInfo, { recievedProjects: this.state.projects }),
             React.createElement(ReportTable_1.ReportTable, null),
             React.createElement(ReportSummary_1.ReportSummary, null)));
     }
@@ -22475,9 +22488,27 @@ exports.ReportContent = ReportContent;
 Object.defineProperty(exports, "__esModule", { value: true });
 const React = __webpack_require__(14);
 class ProjectInfo extends React.Component {
-    getReport(projectName, projectVersion) {
+    constructor(props) {
+        super(props);
+        this.state = {};
+        this.handleSelectChanged = this.handleSelectChanged.bind(this);
+        this.getVersions = this.getVersions.bind(this);
+    }
+    getVersions(projectName) {
+        this.setState({
+            projectVersions: this.props.recievedProjects
+                .find((project) => project.name == projectName)
+                .versions
+        });
+    }
+    handleSelectChanged(event) {
+        this.getVersions(event.target.value);
     }
     render() {
+        let projects = this.props.recievedProjects ? this.props.recievedProjects.map((project) => React.createElement("option", { key: project.id }, project.name)) : null;
+        let projectVersions = this.state.projectVersions ? this.state.projectVersions.map((version) => React.createElement("option", { key: version }, version)) : null;
+        //let projectVersions: JSX.Element[][] = this.props.recievedProjects ? this.props.recievedProjects.map((project) =>
+        //    project.versions.map((version) => <option key={version}>version</option>)): null;
         return (React.createElement("div", null,
             React.createElement("table", { className: "table table-bordered" },
                 React.createElement("thead", null,
@@ -22488,17 +22519,11 @@ class ProjectInfo extends React.Component {
                     React.createElement("tr", null,
                         React.createElement("td", null, "\u041F\u0440\u043E\u0435\u043A\u0442:"),
                         React.createElement("td", null,
-                            React.createElement("select", { className: "form-control" },
-                                React.createElement("option", null, "1"),
-                                React.createElement("option", null, "2"),
-                                React.createElement("option", null, "3")))),
+                            React.createElement("select", { className: "form-control", onChange: this.handleSelectChanged }, projects))),
                     React.createElement("tr", null,
                         React.createElement("td", null, "\u0412\u0435\u0440\u0441\u0438\u044F \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430:"),
                         React.createElement("td", null,
-                            React.createElement("select", { className: "form-control" },
-                                React.createElement("option", null, "1"),
-                                React.createElement("option", null, "2"),
-                                React.createElement("option", null, "3")))))),
+                            React.createElement("select", { className: "form-control" }, projectVersions))))),
             React.createElement("button", { className: "btn btn-primary" }, "\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u043E\u0442\u0447\u0435\u0442")));
     }
 }
