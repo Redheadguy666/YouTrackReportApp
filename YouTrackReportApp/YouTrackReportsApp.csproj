@@ -254,6 +254,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Components\definitions.d.ts" />
     <TypeScriptCompile Include="Components\Helpers\actions.ts" />
     <TypeScriptCompile Include="Components\Helpers\reducers.ts" />
     <TypeScriptCompile Include="Components\Models\ProjectModel.ts" />

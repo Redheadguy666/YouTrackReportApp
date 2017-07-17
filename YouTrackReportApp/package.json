@@ -23,10 +23,12 @@
     "@types/react": "15.0.30",
     "@types/react-dom": "15.5.0",
     "axios": "^0.16.2",
+    "lodash": "^4.17.4",
     "react": "15.6.1",
     "react-dom": "15.6.1",
     "react-redux": "^5.0.5",
-    "redux": "^3.7.1"
+    "redux": "^3.7.1",
+    "redux-actions": "^2.2.1"
   },
   "devDependencies": {
     "awesome-typescript-loader": "3.1.3",

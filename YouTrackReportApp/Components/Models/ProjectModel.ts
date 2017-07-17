@@ -1,4 +1,4 @@
-﻿export default class ProjectModel
+﻿export class ProjectModel
 {
     projectName: string;
     projectVersion: string;

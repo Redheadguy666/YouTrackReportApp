@@ -6,7 +6,7 @@ import { createStore } from "redux";
 import { YouTrackReportsApp } from "../Source/App";
 import YouTrackReports from "../Helpers/reducers";
 import { getProjectsAction, getReportAction } from "../Helpers/actions";
-import ProjectModel from "../Models/ProjectModel";
+import { ProjectModel } from "../Models/ProjectModel";
 
 const store = createStore(YouTrackReports);
 
