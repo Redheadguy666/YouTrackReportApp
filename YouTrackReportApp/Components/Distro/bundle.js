@@ -22402,11 +22402,8 @@ const React = __webpack_require__(14);
 const ReportNavbar_1 = __webpack_require__(185);
 const ReportContent_1 = __webpack_require__(186);
 class YouTrackReportsApp extends React.Component {
-    constructor() {
-        super(...arguments);
-        this.props = {};
-    }
     render() {
+        console.log(this.props.hello);
         return (React.createElement("div", null,
             React.createElement(ReportNavbar_1.ReportNavbar, null),
             React.createElement(ReportContent_1.ReportContent, null)));

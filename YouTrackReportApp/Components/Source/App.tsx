@@ -7,15 +7,13 @@ import { ReportContent } from "../Source/ReportContent";
 
 interface IYouTrackReportsAppProps
 {
-    
+    hello?: any;
 }
 
-export class YouTrackReportsApp extends React.Component<{}, {}>
+export class YouTrackReportsApp extends React.Component<IYouTrackReportsAppProps, {}>
 {
-    props: IYouTrackReportsAppProps = {} as any;
-
     render() {
-
+        console.log(this.props.hello);
         return (
             <div>
                 <ReportNavbar />
