@@ -21,7 +21,7 @@ namespace YouTrackReportsApp.Services
             var projectVersion = "Web-client 5.4.9";
 
             var projectManager = new ProjectManagement(YouTrackDataService.Connection);
-            var project = projectManager.GetProjects().ToList().First(p => p.ShortName == projectName);
+            var project = projectManager.GetProjects().ToList().First(p => p.Name == projectName);
 
             var versionBundleName = project.VersionBundleName();
             var versions = projectManager.GetVersions(versionBundleName).ToList().First(version => version.Name == projectVersion);

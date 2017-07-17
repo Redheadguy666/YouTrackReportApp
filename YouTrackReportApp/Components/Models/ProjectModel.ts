@@ -1,6 +1,6 @@
 ﻿export class ProjectModel
 {
-    id: string;
+    id?: string;
     name: string;
     versions: string[];
 }

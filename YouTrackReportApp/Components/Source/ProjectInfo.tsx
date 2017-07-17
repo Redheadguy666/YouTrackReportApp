@@ -8,6 +8,7 @@ interface IProjectInfoProps
 
 interface IProjectInfoState
 {
+    currentProject: string;
     projectVersions: string[];
 }
 
@@ -19,17 +20,34 @@ export class ProjectInfo extends React.Component<IProjectInfoProps, {}>
         super(props);
         this.handleSelectChanged = this.handleSelectChanged.bind(this);
         this.getVersions = this.getVersions.bind(this);
+        this.getReportForProject = this.getReportForProject.bind(this);
+
     }
 
     getVersions(projectName: string) {
         this.setState({
             projectVersions: this.props.recievedProjects
-                .find((project) => project.name == projectName).versions
+                .find((project) => project.name == projectName).versions,
+            currentProject: projectName
         });
     }
 
     handleSelectChanged(event: any) {
         this.getVersions(event.target.value);
+    }
+
+    getReportForProject(event: any) {
+
+        let project = {
+            name: this.state.currentProject,
+            version: this.state.projectVersions[0]
+        }
+
+        let currentProject = JSON.stringify(project);
+
+        $.post("YouTrackData/GetReport", currentProject, (response) => {
+            alert(JSON.stringify(response));
+        }, "json");
     }
 
     render() {
@@ -68,7 +86,7 @@ export class ProjectInfo extends React.Component<IProjectInfoProps, {}>
                         </tr>
                     </tbody>
                 </table>
-                <button className="btn btn-primary">Получить отчет</button>
+                <button className="btn btn-primary" onClick={this.getReportForProject}>Получить отчет</button>
             </div>
         );
     }
