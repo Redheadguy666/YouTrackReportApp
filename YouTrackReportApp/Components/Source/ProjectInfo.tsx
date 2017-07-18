@@ -1,9 +1,11 @@
 ﻿import * as React from "react";
 import { ProjectModel } from "../Models/ProjectModel";
+import { ReportModel } from "../Models/ReportModel";
 
 interface IProjectInfoProps
 {
     recievedProjects: ProjectModel[];
+    passReportToContentCallback: any;
 }
 
 interface IProjectInfoState
@@ -34,6 +36,10 @@ export class ProjectInfo extends React.Component<IProjectInfoProps, {}>
         });
     }
 
+    passReportToContent(report: ReportModel) {
+        this.props.passReportToContentCallback(report);
+    }
+
     handleProjectSelectChanged(event: any) {
         this.getVersions(event.target.value);
     }
@@ -51,10 +57,8 @@ export class ProjectInfo extends React.Component<IProjectInfoProps, {}>
             versions: this.state.currentProjectVersion
         }
 
-        alert(project.versions);
-
         $.post("YouTrackData/GetReport", project, (response) => {
-            console.log(response);
+            this.passReportToContent(response);
         }, "json");
     }
 

@@ -3,10 +3,12 @@ import { ProjectInfo } from "../Source/ProjectInfo";
 import { ReportTable } from "../Source/ReportTable";
 import { ReportSummary } from "../Source/ReportSummary";
 import { ProjectModel } from "../Models/ProjectModel";
+import { ReportModel } from "../Models/ReportModel";
 
 interface IReportContentState
 {
     projects?: ProjectModel[]
+    report?: ReportModel;
 }
 
 export class ReportContent extends React.Component<{}, {}>
@@ -18,10 +20,10 @@ export class ReportContent extends React.Component<{}, {}>
     }
 
     componentWillMount() {
-        this.getReports();
+        this.getProjects();
     }
 
-    getReports() {
+    getProjects() {
         $.get("YouTrackData/GetProjects", (response) => {
             this.setState({
                 projects: response
@@ -29,10 +31,16 @@ export class ReportContent extends React.Component<{}, {}>
         }, "json");
     }
 
+    getReports(recievedReport: ReportModel) {
+        this.setState({
+            report: recievedReport
+        })
+    }
+
     render() {
         return (
             <div>
-                <ProjectInfo recievedProjects={this.state.projects}/>
+                <ProjectInfo recievedProjects={this.state.projects} passReportToContentCallback={(report) => this.getReports(report)}/>
                 <ReportTable />
                 <ReportSummary />
             </div>

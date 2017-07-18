@@ -22460,18 +22460,23 @@ class ReportContent extends React.Component {
         this.state = {};
     }
     componentWillMount() {
-        this.getReports();
+        this.getProjects();
     }
-    getReports() {
+    getProjects() {
         $.get("YouTrackData/GetProjects", (response) => {
             this.setState({
                 projects: response
             });
         }, "json");
     }
+    getReports(recievedReport) {
+        this.setState({
+            report: recievedReport
+        });
+    }
     render() {
         return (React.createElement("div", null,
-            React.createElement(ProjectInfo_1.ProjectInfo, { recievedProjects: this.state.projects }),
+            React.createElement(ProjectInfo_1.ProjectInfo, { recievedProjects: this.state.projects, passReportToContentCallback: (report) => this.getReports(report) }),
             React.createElement(ReportTable_1.ReportTable, null),
             React.createElement(ReportSummary_1.ReportSummary, null)));
     }
@@ -22503,6 +22508,9 @@ class ProjectInfo extends React.Component {
             currentProject: projectName
         });
     }
+    passReportToContent(report) {
+        this.props.passReportToContentCallback(report);
+    }
     handleProjectSelectChanged(event) {
         this.getVersions(event.target.value);
     }
@@ -22516,9 +22524,8 @@ class ProjectInfo extends React.Component {
             name: this.state.currentProject,
             versions: this.state.currentProjectVersion
         };
-        alert(project.versions);
         $.post("YouTrackData/GetReport", project, (response) => {
-            console.log(response);
+            this.passReportToContent(response);
         }, "json");
     }
     render() {
