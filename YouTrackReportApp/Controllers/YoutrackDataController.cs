@@ -10,6 +10,7 @@ using YouTrackReportsApp.Services;
 
 using YouTrackSharp.Projects;
 using Newtonsoft.Json;
+using YouTrackReports.Models;
 
 namespace YouTrackReportsApp.Controllers
 {
@@ -32,9 +33,9 @@ namespace YouTrackReportsApp.Controllers
         public IReportService ReportService { get; set; }
 
         [ActionName("GetReport")]
-        public string GetReport(string projectName, string projectVersion)
+        public string GetReport(ProjectModel project)
         {
-            var productionReport = this.ReportService.GetProductionReport(projectName, projectVersion);
+            var productionReport = this.ReportService.GetProductionReport(project);
 
             return this.JsonSerializeObject(productionReport);
         }

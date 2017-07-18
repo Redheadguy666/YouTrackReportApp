@@ -6,7 +6,7 @@ namespace YouTrackReportsApp.Services
 {
     public interface IReportService
     {
-        ReportModel GetProductionReport(string projectName, string projectVersion);
+        ReportModel GetProductionReport(ProjectModel project);
         List<ProjectModel> GetProjects(); 
     }
 }

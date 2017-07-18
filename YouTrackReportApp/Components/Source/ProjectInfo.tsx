@@ -10,6 +10,7 @@ interface IProjectInfoState
 {
     currentProject: string;
     projectVersions: string[];
+    currentProjectVersion: string;
 }
 
 export class ProjectInfo extends React.Component<IProjectInfoProps, {}>
@@ -18,9 +19,10 @@ export class ProjectInfo extends React.Component<IProjectInfoProps, {}>
 
     constructor(props: any) {
         super(props);
-        this.handleSelectChanged = this.handleSelectChanged.bind(this);
+        this.handleProjectSelectChanged = this.handleProjectSelectChanged.bind(this);
         this.getVersions = this.getVersions.bind(this);
         this.getReportForProject = this.getReportForProject.bind(this);
+        this.handleProjectVersionSelectChanged = this.handleProjectVersionSelectChanged.bind(this);
 
     }
 
@@ -32,21 +34,27 @@ export class ProjectInfo extends React.Component<IProjectInfoProps, {}>
         });
     }
 
-    handleSelectChanged(event: any) {
+    handleProjectSelectChanged(event: any) {
         this.getVersions(event.target.value);
+    }
+
+    handleProjectVersionSelectChanged(event: any) {
+        this.setState({
+            currentProjectVersion: event.target.value
+        })
     }
 
     getReportForProject(event: any) {
 
         let project = {
             name: this.state.currentProject,
-            version: this.state.projectVersions[0]
+            versions: this.state.currentProjectVersion
         }
 
-        let currentProject = JSON.stringify(project);
+        alert(project.versions);
 
-        $.post("YouTrackData/GetReport", currentProject, (response) => {
-            alert(JSON.stringify(response));
+        $.post("YouTrackData/GetReport", project, (response) => {
+            console.log(response);
         }, "json");
     }
 
@@ -71,7 +79,7 @@ export class ProjectInfo extends React.Component<IProjectInfoProps, {}>
                         <tr>
                             <td>Проект:</td>
                             <td>
-                                <select className="form-control" onChange={this.handleSelectChanged}>
+                                <select className="form-control" onChange={this.handleProjectSelectChanged}>
                                     {projects}
                                 </select>
                             </td>
@@ -79,7 +87,7 @@ export class ProjectInfo extends React.Component<IProjectInfoProps, {}>
                         <tr>
                             <td>Версия продукта:</td>
                             <td>
-                                <select className="form-control">
+                                <select className="form-control" onChange={this.handleProjectVersionSelectChanged}>
                                     {projectVersions}
                                 </select>
                             </td>

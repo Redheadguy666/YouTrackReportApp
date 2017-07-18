@@ -15,19 +15,17 @@ namespace YouTrackReportsApp.Services
     {
         [Inject]
         public IYouTrackDataService YouTrackDataService_ { get; set; }
-        public ReportModel GetProductionReport(string projectName_, string projectVersion_)
+        public ReportModel GetProductionReport(ProjectModel project)
         {
-            var projectName = "WebC";
-            var projectVersion = "Web-client 5.4.9";
 
             var projectManager = new ProjectManagement(YouTrackDataService.Connection);
-            var project = projectManager.GetProjects().ToList().First(p => p.Name == projectName);
+            var project_ = projectManager.GetProjects().ToList().First(p => p.Name == project.Name);
 
-            var versionBundleName = project.VersionBundleName();
-            var versions = projectManager.GetVersions(versionBundleName).ToList().First(version => version.Name == projectVersion);
+            var versionBundleName = project_.VersionBundleName();
+            var versions = projectManager.GetVersions(versionBundleName).ToList().First(version => version.Name == project.Versions[0]);
 
             var productionReport = new ReportModel();
-            var issues = this.YouTrackDataService_.GetIssues(projectName, projectVersion);
+            var issues = this.YouTrackDataService_.GetIssues(project_.ShortName, project.Versions[0]);
             var workItems = issues.SelectMany(l => l.WorkItems).ToList();
             var authorWorkItems = workItems
                 .GroupBy(l => l.Author)

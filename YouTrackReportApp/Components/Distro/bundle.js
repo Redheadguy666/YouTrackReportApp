@@ -22491,9 +22491,10 @@ class ProjectInfo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
-        this.handleSelectChanged = this.handleSelectChanged.bind(this);
+        this.handleProjectSelectChanged = this.handleProjectSelectChanged.bind(this);
         this.getVersions = this.getVersions.bind(this);
         this.getReportForProject = this.getReportForProject.bind(this);
+        this.handleProjectVersionSelectChanged = this.handleProjectVersionSelectChanged.bind(this);
     }
     getVersions(projectName) {
         this.setState({
@@ -22502,17 +22503,22 @@ class ProjectInfo extends React.Component {
             currentProject: projectName
         });
     }
-    handleSelectChanged(event) {
+    handleProjectSelectChanged(event) {
         this.getVersions(event.target.value);
+    }
+    handleProjectVersionSelectChanged(event) {
+        this.setState({
+            currentProjectVersion: event.target.value
+        });
     }
     getReportForProject(event) {
         let project = {
             name: this.state.currentProject,
-            version: this.state.projectVersions[0]
+            versions: this.state.currentProjectVersion
         };
-        let currentProject = JSON.stringify(project);
-        $.post("YouTrackData/GetReport", currentProject, (response) => {
-            alert(JSON.stringify(response));
+        alert(project.versions);
+        $.post("YouTrackData/GetReport", project, (response) => {
+            console.log(response);
         }, "json");
     }
     render() {
@@ -22528,11 +22534,11 @@ class ProjectInfo extends React.Component {
                     React.createElement("tr", null,
                         React.createElement("td", null, "\u041F\u0440\u043E\u0435\u043A\u0442:"),
                         React.createElement("td", null,
-                            React.createElement("select", { className: "form-control", onChange: this.handleSelectChanged }, projects))),
+                            React.createElement("select", { className: "form-control", onChange: this.handleProjectSelectChanged }, projects))),
                     React.createElement("tr", null,
                         React.createElement("td", null, "\u0412\u0435\u0440\u0441\u0438\u044F \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430:"),
                         React.createElement("td", null,
-                            React.createElement("select", { className: "form-control" }, projectVersions))))),
+                            React.createElement("select", { className: "form-control", onChange: this.handleProjectVersionSelectChanged }, projectVersions))))),
             React.createElement("button", { className: "btn btn-primary", onClick: this.getReportForProject }, "\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u043E\u0442\u0447\u0435\u0442")));
     }
 }

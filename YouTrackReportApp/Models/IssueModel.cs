@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.CSharp.RuntimeBinder;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,8 +19,16 @@ namespace YouTrackReportsApp.Models
         }
         public void Initialize(dynamic issue, IConnection connection)
         {
-            this.PlanningMark = issue.оценка.Length != 0 ? Convert.ToInt32(issue.оценка[0]) : 0;     //Плановая трудоемкость;
-            this.ActualMark = issue.потрачено.Length != 0 ? Convert.ToInt32(issue.потрачено[0]) : 0; //Фактическая трудоемкость;
+            try
+            {
+                this.PlanningMark = issue.оценка.Length != 0 ? Convert.ToInt32(issue.оценка[0]) : 0;     //Плановая трудоемкость;
+                this.ActualMark = issue.потрачено.Length != 0 ? Convert.ToInt32(issue.потрачено[0]) : 0; //Фактическая трудоемкость;
+            }
+            catch (RuntimeBinderException ex)
+            {
+                this.PlanningMark = 0;
+                this.ActualMark = 0;
+            }
 
             var timeTrackingManager = new TimeTrackingManagment(connection);
             string issueId = issue.id;
