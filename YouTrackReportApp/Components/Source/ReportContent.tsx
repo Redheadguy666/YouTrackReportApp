@@ -38,10 +38,14 @@ export class ReportContent extends React.Component<{}, {}>
     }
 
     render() {
+
+        let tableData = this.state.report ? this.state.report.tableDataInformation
+            : null;
+
         return (
             <div>
                 <ProjectInfo recievedProjects={this.state.projects} passReportToContentCallback={(report) => this.getReports(report)}/>
-                <ReportTable />
+                <ReportTable employmentTable={tableData}/>
                 <ReportSummary />
             </div>
         );

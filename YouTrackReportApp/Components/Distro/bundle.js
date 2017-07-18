@@ -22475,9 +22475,11 @@ class ReportContent extends React.Component {
         });
     }
     render() {
+        let tableData = this.state.report ? this.state.report.tableDataInformation
+            : null;
         return (React.createElement("div", null,
             React.createElement(ProjectInfo_1.ProjectInfo, { recievedProjects: this.state.projects, passReportToContentCallback: (report) => this.getReports(report) }),
-            React.createElement(ReportTable_1.ReportTable, null),
+            React.createElement(ReportTable_1.ReportTable, { employmentTable: tableData }),
             React.createElement(ReportSummary_1.ReportSummary, null)));
     }
 }
@@ -22561,7 +22563,18 @@ exports.ProjectInfo = ProjectInfo;
 Object.defineProperty(exports, "__esModule", { value: true });
 const React = __webpack_require__(14);
 class ReportTable extends React.Component {
+    constructor(props) {
+        super(props);
+        this.props = {};
+    }
     render() {
+        let table = this.props.employmentTable ? this.props.employmentTable.individualEmploymentInformation.map((employer) => React.createElement("div", null,
+            React.createElement("td", { key: employer.id }, employer.id),
+            React.createElement("td", null, employer.developer),
+            React.createElement("td", null, employer.scopeOfWork),
+            React.createElement("td", null, employer.participationDegree),
+            ";")) : null;
+        console.log(table);
         return (React.createElement("div", { className: "container" },
             React.createElement("h4", null,
                 "\u0418\u043D\u0434\u0438\u0432\u0438\u0434\u0443\u0430\u043B\u044C\u043D\u0430\u044F \u0437\u0430\u043D\u044F\u0442\u043E\u0441\u0442\u044C \u0438 \u0441\u0442\u0435\u043F\u0435\u043D\u044C \u0443\u0447\u0430\u0441\u0442\u0438\u044F:",
@@ -22575,11 +22588,7 @@ class ReportTable extends React.Component {
                         React.createElement("th", null, "\u041E\u0431\u044A\u0435\u043C \u0440\u0430\u0431\u043E\u0442, \u0447\u0435\u043B/\u0434\u043D\u0435\u0439"),
                         React.createElement("th", null, "\u0421\u0442\u0435\u043F\u0435\u043D\u044C \u0443\u0447\u0430\u0441\u0442\u0438\u044F"))),
                 React.createElement("tbody", null,
-                    React.createElement("tr", null,
-                        React.createElement("td", null),
-                        React.createElement("td", null),
-                        React.createElement("td", null),
-                        React.createElement("td", null))))));
+                    React.createElement("tr", null, table)))));
     }
 }
 exports.ReportTable = ReportTable;

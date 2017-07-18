@@ -1,8 +1,31 @@
 ﻿import * as React from "react";
+import { IndividualEmploymentTable } from "../Models/ReportModel";
 
-export class ReportTable extends React.Component<{}, {}>
+interface IReportTableProps
 {
+    employmentTable?: IndividualEmploymentTable
+}
+
+export class ReportTable extends React.Component<IReportTableProps, {}>
+{
+    props: IReportTableProps = {} as any;
+
+    constructor(props: any) {
+        super(props);
+    }
+
     render() {
+
+        let table: JSX.Element[] = this.props.employmentTable ? this.props.employmentTable.individualEmploymentInformation.map((employer) => 
+            <div>
+                <td key={employer.id}>{employer.id}</td>
+                <td>{employer.developer}</td>
+                <td>{employer.scopeOfWork}</td>
+                <td>{employer.participationDegree}</td>;
+            </div>) : null
+
+        console.log(table);
+
         return (
             <div className="container">
                 <h4>Индивидуальная занятость и степень участия:
@@ -19,10 +42,7 @@ export class ReportTable extends React.Component<{}, {}>
                         </thead>
                         <tbody>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                {table}
                             </tr>
                         </tbody>
                 </table>

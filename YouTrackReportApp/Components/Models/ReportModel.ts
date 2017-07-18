@@ -1,7 +1,7 @@
 ﻿export class ReportModel
 {
     summaryInformation: Summary;
-    tableDataInformation: IndividualEmploymentModel;
+    tableDataInformation: IndividualEmploymentTable;
 }
 
 export class Summary
