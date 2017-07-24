@@ -22477,10 +22477,12 @@ class ReportContent extends React.Component {
     render() {
         let tableData = this.state.report ? this.state.report.tableDataInformation
             : null;
+        let summaryData = this.state.report ? this.state.report.summaryInformation.summaryModel
+            : null;
         return (React.createElement("div", null,
             React.createElement(ProjectInfo_1.ProjectInfo, { recievedProjects: this.state.projects, passReportToContentCallback: (report) => this.getReports(report) }),
-            React.createElement(ReportTable_1.ReportTable, { employmentTable: tableData }),
-            React.createElement(ReportSummary_1.ReportSummary, null)));
+            React.createElement(ReportTable_1.ReportTable, { employmentTable: tableData ? tableData.individualEmploymentModel : null }),
+            React.createElement(ReportSummary_1.ReportSummary, { reportSummary: summaryData })));
     }
 }
 exports.ReportContent = ReportContent;
@@ -22568,13 +22570,11 @@ class ReportTable extends React.Component {
         this.props = {};
     }
     render() {
-        let table = this.props.employmentTable ? this.props.employmentTable.individualEmploymentInformation.map((employer) => React.createElement("div", null,
+        let table = this.props.employmentTable ? this.props.employmentTable.map((employer) => React.createElement("tr", null,
             React.createElement("td", { key: employer.id }, employer.id),
             React.createElement("td", null, employer.developer),
             React.createElement("td", null, employer.scopeOfWork),
-            React.createElement("td", null, employer.participationDegree),
-            ";")) : null;
-        console.log(table);
+            React.createElement("td", null, employer.participationDegree))) : null;
         return (React.createElement("div", { className: "container" },
             React.createElement("h4", null,
                 "\u0418\u043D\u0434\u0438\u0432\u0438\u0434\u0443\u0430\u043B\u044C\u043D\u0430\u044F \u0437\u0430\u043D\u044F\u0442\u043E\u0441\u0442\u044C \u0438 \u0441\u0442\u0435\u043F\u0435\u043D\u044C \u0443\u0447\u0430\u0441\u0442\u0438\u044F:",
@@ -22587,8 +22587,7 @@ class ReportTable extends React.Component {
                         React.createElement("th", null, "\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u0447\u0438\u043A"),
                         React.createElement("th", null, "\u041E\u0431\u044A\u0435\u043C \u0440\u0430\u0431\u043E\u0442, \u0447\u0435\u043B/\u0434\u043D\u0435\u0439"),
                         React.createElement("th", null, "\u0421\u0442\u0435\u043F\u0435\u043D\u044C \u0443\u0447\u0430\u0441\u0442\u0438\u044F"))),
-                React.createElement("tbody", null,
-                    React.createElement("tr", null, table)))));
+                React.createElement("tbody", null, table))));
     }
 }
 exports.ReportTable = ReportTable;
@@ -22604,20 +22603,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const React = __webpack_require__(14);
 class ReportSummary extends React.Component {
     render() {
+        let summary = this.props.reportSummary;
         return (React.createElement("div", null,
             React.createElement("dl", { className: "inline text-center" },
                 React.createElement("dt", null, "\u041E\u0431\u0449\u0430\u044F \u043F\u043B\u0430\u043D\u043E\u0432\u0430\u044F \u0442\u0440\u0443\u0434\u043E\u0435\u043C\u043A\u043E\u0441\u0442\u044C \u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0438(\u0447/\u0434):"),
                 " ",
-                React.createElement("dd", null, "949"),
+                React.createElement("dd", null, summary ? summary.sumPlanningMark : null),
                 React.createElement("dt", null, "\u041E\u0431\u0449\u0430\u044F \u0444\u0430\u043A\u0442\u0438\u0447\u0435\u0441\u043A\u0430\u044F \u0442\u0440\u0443\u0434\u043E\u0435\u043C\u043A\u043E\u0441\u0442\u044C \u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0438(\u0447/\u0434):"),
                 " ",
-                React.createElement("dd", null, "948,75"),
+                React.createElement("dd", null, summary ? summary.sumActualMark : null),
                 React.createElement("dt", null, "\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0443\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u043E\u0432 \u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0438:"),
                 " ",
-                React.createElement("dd", null, "17"),
+                React.createElement("dd", null, summary ? summary.developersCount : null),
                 React.createElement("dt", null, "\u0421\u0440\u0435\u0434\u043D\u044F\u044F \u0441\u0442\u0435\u043F\u0435\u043D\u044C \u0443\u0447\u0430\u0441\u0442\u0438\u044F:"),
                 " ",
-                React.createElement("dd", null, "55,9"))));
+                React.createElement("dd", null, summary ? summary.averageParticipationDegree : null))));
     }
 }
 exports.ReportSummary = ReportSummary;
