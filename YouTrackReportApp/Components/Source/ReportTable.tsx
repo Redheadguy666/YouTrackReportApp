@@ -1,9 +1,9 @@
 ﻿import * as React from "react";
-import { IndividualEmploymentTable } from "../Models/ReportModel";
+import { IndividualEmploymentModel } from "../Models/ReportModel";
 
 interface IReportTableProps
 {
-    employmentTable?: IndividualEmploymentTable
+    employmentTable?: IndividualEmploymentModel[]
 }
 
 export class ReportTable extends React.Component<IReportTableProps, {}>
@@ -16,15 +16,13 @@ export class ReportTable extends React.Component<IReportTableProps, {}>
 
     render() {
 
-        let table: JSX.Element[] = this.props.employmentTable ? this.props.employmentTable.individualEmploymentInformation.map((employer) => 
-            <div>
+        let table: JSX.Element[] = this.props.employmentTable ? this.props.employmentTable.map((employer) => 
+            <tr>
                 <td key={employer.id}>{employer.id}</td>
                 <td>{employer.developer}</td>
                 <td>{employer.scopeOfWork}</td>
-                <td>{employer.participationDegree}</td>;
-            </div>) : null
-
-        console.log(table);
+                <td>{employer.participationDegree}</td>
+            </tr>) : null
 
         return (
             <div className="container">
@@ -41,9 +39,7 @@ export class ReportTable extends React.Component<IReportTableProps, {}>
                         </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                {table}
-                            </tr>
+                            {table}
                         </tbody>
                 </table>
             </div>

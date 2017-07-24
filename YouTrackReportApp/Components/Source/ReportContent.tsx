@@ -42,11 +42,14 @@ export class ReportContent extends React.Component<{}, {}>
         let tableData = this.state.report ? this.state.report.tableDataInformation
             : null;
 
+        let summaryData = this.state.report ? this.state.report.summaryInformation.summaryModel
+            : null;
+        
         return (
             <div>
                 <ProjectInfo recievedProjects={this.state.projects} passReportToContentCallback={(report) => this.getReports(report)}/>
-                <ReportTable employmentTable={tableData}/>
-                <ReportSummary />
+                <ReportTable employmentTable={tableData ? tableData.individualEmploymentModel : null}/>
+                <ReportSummary reportSummary={summaryData}/>
             </div>
         );
     }
