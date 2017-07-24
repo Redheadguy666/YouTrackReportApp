@@ -22599,7 +22599,9 @@ class ReportTable extends React.Component {
             React.createElement("td", { key: employer.id }, employer.id),
             React.createElement("td", null, employer.developer),
             React.createElement("td", null, employer.scopeOfWork),
-            React.createElement("td", null, employer.participationDegree))) : null;
+            React.createElement("td", null,
+                Math.round(employer.participationDegree * 1000) / 1000 * 100,
+                "%"))) : null;
         let buttonState = !this.props.employmentTable;
         return (React.createElement("div", { className: "container" },
             React.createElement("h4", null,

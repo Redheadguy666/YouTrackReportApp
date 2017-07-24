@@ -53,7 +53,7 @@ export class ReportTable extends React.Component<IReportTableProps, {}>
                 <td key={employer.id}>{employer.id}</td>
                 <td>{employer.developer}</td>
                 <td>{employer.scopeOfWork}</td>
-                <td>{employer.participationDegree}</td>
+                <td>{Math.round(employer.participationDegree * 1000) / 1000 * 100}%</td>
             </tr>) : null
 
         let buttonState = !this.props.employmentTable;
