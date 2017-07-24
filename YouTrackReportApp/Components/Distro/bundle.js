@@ -22569,6 +22569,30 @@ class ReportTable extends React.Component {
         super(props);
         this.props = {};
     }
+    exportToExcel(tableData) {
+        let csv = "data:text/csv;charset=windows-1251,";
+        let header = "№;Разработчик;Объем работ, чел/дней;Степень участия;" + "\n";
+        csv += header;
+        let rowString = "";
+        tableData.forEach(function (row, index) {
+            let rowString = String(row.id) + ";" + row.developer + ";" +
+                row.scopeOfWork + ";" + row.participationDegree;
+            csv += index < tableData.length ? rowString + "\n" : rowString;
+        });
+        alert(csv);
+        let encodedUri = encodeURI(csv);
+        let downloadLink = document.createElement("a");
+        let date = new Date();
+        let dd = date.getDate();
+        let mm = date.getMonth() + 1;
+        let yyyy = date.getFullYear();
+        let today = dd + "-" + mm + "-" + yyyy;
+        let fileName = "Отчет от " + today + ".csv";
+        downloadLink.setAttribute("href", encodedUri);
+        downloadLink.setAttribute("download", fileName);
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+    }
     render() {
         let table = this.props.employmentTable ? this.props.employmentTable.map((employer) => React.createElement("tr", null,
             React.createElement("td", { key: employer.id }, employer.id),
@@ -22579,8 +22603,8 @@ class ReportTable extends React.Component {
             React.createElement("h4", null,
                 "\u0418\u043D\u0434\u0438\u0432\u0438\u0434\u0443\u0430\u043B\u044C\u043D\u0430\u044F \u0437\u0430\u043D\u044F\u0442\u043E\u0441\u0442\u044C \u0438 \u0441\u0442\u0435\u043F\u0435\u043D\u044C \u0443\u0447\u0430\u0441\u0442\u0438\u044F:",
                 React.createElement("span", null,
-                    React.createElement("button", { className: "btn btn-sm btn-primary" }, "\u042D\u043A\u0441\u043F\u043E\u0440\u0442 \u0432 Excel"))),
-            React.createElement("table", { className: "table table-bordered" },
+                    React.createElement("button", { onClick: () => this.exportToExcel(this.props.employmentTable), className: "btn btn-sm btn-primary" }, "\u042D\u043A\u0441\u043F\u043E\u0440\u0442 \u0432 Excel"))),
+            React.createElement("table", { className: "table table-bordered", id: "employersTable" },
                 React.createElement("thead", null,
                     React.createElement("tr", null,
                         React.createElement("th", null, "\u2116"),
