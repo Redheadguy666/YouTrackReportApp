@@ -70,6 +70,7 @@ export class ProjectInfo extends React.Component<IProjectInfoProps, {}>
         let projectVersions: JSX.Element[] = this.state.projectVersions ? this.state.projectVersions.map((version) =>
             <option key={version}>{version}</option>) : null;
 
+        let buttonState = !(this.state.currentProject && this.state.currentProjectVersion);
         return (
             <div>
                 <table className="table table-bordered">
@@ -98,7 +99,7 @@ export class ProjectInfo extends React.Component<IProjectInfoProps, {}>
                         </tr>
                     </tbody>
                 </table>
-                <button className="btn btn-primary" onClick={this.getReportForProject}>Получить отчет</button>
+                <button className="btn btn-primary" disabled={buttonState} onClick={this.getReportForProject}>Получить отчет</button>
             </div>
         );
     }

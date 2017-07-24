@@ -56,10 +56,12 @@ export class ReportTable extends React.Component<IReportTableProps, {}>
                 <td>{employer.participationDegree}</td>
             </tr>) : null
 
+        let buttonState = !this.props.employmentTable;
+
         return (
             <div className="container">
                 <h4>Индивидуальная занятость и степень участия:
-                    <span><button onClick={() => this.exportToExcel(this.props.employmentTable)} className="btn btn-sm btn-primary">Экспорт в Excel</button></span>
+                    <span><button disabled={buttonState} onClick={() => this.exportToExcel(this.props.employmentTable)} className="btn btn-sm btn-primary">Экспорт в Excel</button></span>
                 </h4>
                 <table className="table table-bordered" id="employersTable">
                     <thead>
