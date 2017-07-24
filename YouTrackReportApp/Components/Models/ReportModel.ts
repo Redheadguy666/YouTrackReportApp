@@ -6,17 +6,17 @@
 
 export class Summary
 {
-    summary: SummaryModel;
+    summaryModel: SummaryModel;
 }
 
 export class IndividualEmploymentTable
 {
-    individualEmploymentInformation: IndividualEmploymentModel[]
+    individualEmploymentModel: IndividualEmploymentModel[]
 }
 
 export class SummaryModel
 {
-    sumPlannigMark: number;
+    sumPlanningMark: number;
     sumActualMark: number;
     developersCount: number;
     averageParticipationDegree: number;
