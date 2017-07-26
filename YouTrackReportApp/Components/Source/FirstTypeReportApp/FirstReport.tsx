@@ -1,17 +1,16 @@
 ﻿import * as React from "react";
-import { ProjectInfo } from "../Source/ProjectInfo";
-import { ReportTable } from "../Source/ReportTable";
-import { ReportSummary } from "../Source/ReportSummary";
-import { ProjectModel } from "../Models/ProjectModel";
-import { ReportModel } from "../Models/ReportModel";
+import { ProjectInfo } from "./ProjectInfo";
+import { ReportTable } from "./ReportTable";
+import { ReportSummary } from "./ReportSummary";
+import { ProjectModel } from "../../Models/ProjectModel";
+import { ReportModel } from "../../Models/ReportModel";
 
-interface IReportContentState
-{
+interface IReportContentState {
     projects?: ProjectModel[]
     report?: ReportModel;
 }
 
-export class ReportContent extends React.Component<{}, {}>
+export class FirstReport extends React.Component<{}, {}>
 {
     state: IReportContentState = {} as any;
 
@@ -44,12 +43,12 @@ export class ReportContent extends React.Component<{}, {}>
 
         let summaryData = this.state.report ? this.state.report.summaryInformation.summaryModel
             : null;
-        
+
         return (
             <div>
-                <ProjectInfo recievedProjects={this.state.projects} passReportToContentCallback={(report) => this.getReports(report)}/>
-                <ReportTable employmentTable={tableData ? tableData.individualEmploymentModel : null}/>
-                <ReportSummary reportSummary={summaryData}/>
+                <ProjectInfo recievedProjects={this.state.projects} passReportToContentCallback={(report) => this.getReports(report)} />
+                <ReportTable employmentTable={tableData ? tableData.individualEmploymentModel : null} />
+                <ReportSummary reportSummary={summaryData} />
             </div>
         );
     }

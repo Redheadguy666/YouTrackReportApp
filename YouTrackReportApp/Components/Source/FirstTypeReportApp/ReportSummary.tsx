@@ -1,5 +1,5 @@
 ﻿import * as React from "react";
-import { SummaryModel } from "../Models/ReportModel"
+import { SummaryModel } from "../../Models/ReportModel"
 
 interface IReportSummaryProps
 {

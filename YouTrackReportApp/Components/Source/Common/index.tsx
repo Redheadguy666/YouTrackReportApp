@@ -2,8 +2,7 @@
 import * as ReactDOM from "react-dom";
 import { createStore } from "redux";
 
-import { YouTrackReportsApp } from "../Source/App";
-import { ProjectModel } from "../Models/ProjectModel";
+import { YouTrackReportsApp } from "./App";
 
 ReactDOM.render
 (

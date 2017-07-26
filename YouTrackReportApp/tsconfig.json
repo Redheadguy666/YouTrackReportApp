@@ -8,9 +8,9 @@
     "jsx": "react"
   },
   "include": [
-    //"./Scripts/src/components/*"
-      "./Components/Source/*" 
-    //"./Scripts/typings/**/*"
+    "./Components/Source/Common/*",
+    "./Components/Source/FirstTypeReportApp/*",
+    "./Components/Source/SecondTypeReportApp/*"
   ],
   "exclude": [
     "node_modules",

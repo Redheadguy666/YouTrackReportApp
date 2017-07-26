@@ -1,6 +1,6 @@
 ﻿import * as React from "react";
-import { ProjectModel } from "../Models/ProjectModel";
-import { ReportModel } from "../Models/ReportModel";
+import { ProjectModel } from "../../Models/ProjectModel";
+import { ReportModel } from "../../Models/ReportModel";
 
 interface IProjectInfoProps
 {

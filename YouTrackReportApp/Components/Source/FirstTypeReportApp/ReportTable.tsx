@@ -1,5 +1,6 @@
 ﻿import * as React from "react";
-import { IndividualEmploymentModel } from "../Models/ReportModel";
+
+import { IndividualEmploymentModel } from "../../Models/ReportModel";
 
 interface IReportTableProps
 {

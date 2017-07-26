@@ -256,13 +256,15 @@
   <ItemGroup>
     <TypeScriptCompile Include="Components\Models\ProjectModel.ts" />
     <TypeScriptCompile Include="Components\Models\ReportModel.ts" />
-    <TypeScriptCompile Include="Components\Source\App.tsx" />
-    <TypeScriptCompile Include="Components\Source\index.tsx" />
-    <TypeScriptCompile Include="Components\Source\ProjectInfo.tsx" />
-    <TypeScriptCompile Include="Components\Source\ReportContent.tsx" />
-    <TypeScriptCompile Include="Components\Source\ReportNavbar.tsx" />
-    <TypeScriptCompile Include="Components\Source\ReportSummary.tsx" />
-    <TypeScriptCompile Include="Components\Source\ReportTable.tsx" />
+    <TypeScriptCompile Include="Components\Source\FirstTypeReportApp\FirstReport.tsx" />
+    <TypeScriptCompile Include="Components\Source\Common\App.tsx" />
+    <TypeScriptCompile Include="Components\Source\Common\index.tsx" />
+    <TypeScriptCompile Include="Components\Source\FirstTypeReportApp\ProjectInfo.tsx" />
+    <TypeScriptCompile Include="Components\Source\Common\ReportContent.tsx" />
+    <TypeScriptCompile Include="Components\Source\Common\ReportNavbar.tsx" />
+    <TypeScriptCompile Include="Components\Source\FirstTypeReportApp\ReportSummary.tsx" />
+    <TypeScriptCompile Include="Components\Source\FirstTypeReportApp\ReportTable.tsx" />
+    <TypeScriptCompile Include="Components\Source\SecondTypeReportApp\SecondReport.tsx" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

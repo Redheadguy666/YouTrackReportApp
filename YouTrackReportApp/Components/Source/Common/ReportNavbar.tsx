@@ -1,4 +1,5 @@
 ﻿import * as React from "react";
+import { Link } from "react-router-dom"
 
 export class ReportNavbar extends React.Component<{}, {}>
 {
@@ -9,15 +10,10 @@ export class ReportNavbar extends React.Component<{}, {}>
                     <div className="container-fluid">
                         <ul className="nav navbar-nav">
                             <li className="active dropdown">
-                                <a className="dropdown-toggle" data-toggle="dropdown" href="#">Отчеты <span className="caret"></span></a>
-                                    <ul className="dropdown-menu">
-                                        <li><a href="#">Page 1</a></li>
-                                        <li><a href="#">Page 2</a></li>
-                                        <li><a href="#">Page 3</a></li>
-                                    </ul>
+                                <Link to="/">Первый отчет</Link>
                             </li>
                             <li>
-                                <a href="#">Отчеты</a>
+                                <Link to="/second-report">Второй отчет</Link>
                             </li>
                         </ul>
                     </div>
