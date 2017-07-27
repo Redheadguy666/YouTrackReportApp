@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Ninject;
 using YouTrackReportsApp.Services;
 using System.Web.Mvc;
+using YouTrackReports.Services;
 
 namespace TraineeshipWebApp.NinjectInitialize
 {
@@ -22,6 +23,7 @@ namespace TraineeshipWebApp.NinjectInitialize
         {
             kernel.Bind<IYouTrackDataService>().To<YouTrackDataService>();
             kernel.Bind<IReportService>().To<ReportService>();
+            kernel.Bind<IPercentageReportService>().To<PercentageReportService>();
         }
     }
 }

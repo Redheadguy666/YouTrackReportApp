@@ -11,6 +11,7 @@ using YouTrackReportsApp.Services;
 using YouTrackSharp.Projects;
 using Newtonsoft.Json;
 using YouTrackReports.Models;
+using YouTrackReports.Services;
 
 namespace YouTrackReportsApp.Controllers
 {
@@ -31,6 +32,8 @@ namespace YouTrackReportsApp.Controllers
 
         [Inject]
         public IReportService ReportService { get; set; }
+        [Inject]
+        public IPercentageReportService PercentageReportService { get; set; }
 
         [ActionName("GetReport")]
         public string GetReport(ProjectModel project)
@@ -45,6 +48,13 @@ namespace YouTrackReportsApp.Controllers
         {
             var projects = this.ReportService.GetProjects();
             return this.JsonSerializeObject(projects);
+        }
+
+        [ActionName("GetPercentageReport")]
+        public string GetPercentageReport(DateModel date)
+        {
+            var percentageReport = this.PercentageReportService.GetPercentageReport(date);
+            return this.JsonSerializeObject(percentageReport);
         }
 
         private string JsonSerializeObject(object data)
