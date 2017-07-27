@@ -12,7 +12,12 @@ namespace YouTrackReports.Services
         public IYouTrackDataService YouTrackDataService { get; set; }
         public PercentageReportModel[] GetPercentageReport(DateModel date)
         {
-
+            var date_ = new DateModel()
+            {
+                Year = 2017,
+                Month = 06
+            };
+            var issues = this.YouTrackDataService.GetIssues(date_);
 
 
 
