@@ -29,8 +29,6 @@ export class ReportTable extends React.Component<IReportTableProps, {}>
             csv += index < tableData.length ? rowString + "\n" : rowString;
         });
 
-        alert(csv);
-
         let encodedUri = encodeURI(csv);
         let downloadLink = document.createElement("a");
 

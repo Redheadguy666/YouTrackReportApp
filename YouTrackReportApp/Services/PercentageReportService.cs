@@ -1,7 +1,9 @@
 ﻿using Ninject;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using YouTrackReports.Models.Youtrack;
+using YouTrackReportsApp.Models;
 using YouTrackReportsApp.Services;
 
 namespace YouTrackReports.Services
@@ -10,21 +12,30 @@ namespace YouTrackReports.Services
     {
         [Inject]
         public IYouTrackDataService YouTrackDataService { get; set; }
-        public PercentageReportModel[] GetPercentageReport(DateModel date)
+        public List<PercentageReportModel> GetPercentageReport(DateModel date)
         {
             var date_ = new DateModel()
             {
                 Year = 2017,
                 Month = 06
             };
+
             var issues = this.YouTrackDataService.GetIssues(date_);
+            var workItems = issues.SelectMany(l => l.WorkItems).ToList();
 
+            var authorWorkItems = workItems
+                .GroupBy(l => l.Author)
+                .Select(l =>
+                    new PercentageReportModel()
+                    {
+                        Developer = l.First().Author,
+                        ProductDays = l.Sum(m => m.Duration) / 480
+                    }
+                )
+                .OrderBy(l => l.Developer)
+                .ToList();
 
-
-
-
-
-            return null;
+            return authorWorkItems;
         }
     }
 }

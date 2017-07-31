@@ -25993,7 +25993,6 @@ class ReportTable extends React.Component {
                 row.scopeOfWork + ";" + row.participationDegree;
             csv += index < tableData.length ? rowString + "\n" : rowString;
         });
-        alert(csv);
         let encodedUri = encodeURI(csv);
         let downloadLink = document.createElement("a");
         let date = new Date();
