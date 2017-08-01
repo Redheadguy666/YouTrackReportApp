@@ -29,11 +29,19 @@ namespace YouTrackReports.Services
                     new PercentageReportModel()
                     {
                         Developer = l.First().Author,
-                        ProductDays = l.Sum(m => m.Duration) / 480
+                        WorkedOut = l.Sum(m => m.Duration) / 480
                     }
                 )
                 .OrderBy(l => l.Developer)
                 .ToList();
+
+            var position = 1;
+
+            foreach (var authorWorkItem in authorWorkItems)
+            {
+                authorWorkItem.Id = position;
+                position++;
+            }
 
             return authorWorkItems;
         }

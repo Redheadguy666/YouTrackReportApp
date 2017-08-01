@@ -7,6 +7,7 @@ namespace YouTrackReports.Models.Youtrack
 {
     public class PercentageReportModel
     {
+        public int Id { get; set; }
         public string Developer { get; set; }
         public float ProductDays { get; set; }
         public float ServicesDays { get; set; }
