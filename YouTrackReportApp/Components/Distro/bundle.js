@@ -26094,7 +26094,7 @@ class DatePanel extends React.Component {
         let months = ["январь", "февраль", "март", "апрель",
             "май", "июнь", "июль", "август",
             "сентябрь", "октябрь", "ноябрь", "декабрь"];
-        let monthCollection = months.map((month) => (React.createElement("option", { key: month }, "month")));
+        let monthCollection = months.map((month) => (React.createElement("option", { key: month }, month)));
         return (React.createElement("div", null,
             React.createElement("h3", null, "\u041C\u0435\u0441\u044F\u0446:"),
             React.createElement("select", { className: "form-control" }, monthCollection)));

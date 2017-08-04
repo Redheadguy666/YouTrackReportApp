@@ -9,7 +9,7 @@ export class DatePanel extends React.Component<{}, {}>
                 "май", "июнь", "июль", "август",
                 "сентябрь", "октябрь", "ноябрь", "декабрь"];
 
-        let monthCollection: JSX.Element[] = months.map((month) => (<option key={month}>month</option>))
+        let monthCollection: JSX.Element[] = months.map((month) => (<option key={month}>{month}</option>))
 
         return (
             <div>
