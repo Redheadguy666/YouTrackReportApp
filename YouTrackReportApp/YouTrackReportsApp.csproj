@@ -268,6 +268,7 @@
     <TypeScriptCompile Include="Components\Source\Common\ReportNavbar.tsx" />
     <TypeScriptCompile Include="Components\Source\FirstTypeReportApp\ReportSummary.tsx" />
     <TypeScriptCompile Include="Components\Source\FirstTypeReportApp\ReportTable.tsx" />
+    <TypeScriptCompile Include="Components\Source\SecondTypeReportApp\DatePanel.tsx" />
     <TypeScriptCompile Include="Components\Source\SecondTypeReportApp\SecondReport.tsx" />
   </ItemGroup>
   <ItemGroup>
