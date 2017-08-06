@@ -1,4 +1,5 @@
 ﻿import * as React from "react";
+import { DateModel } from "../../Models/DateModel";
 
 interface IDatePanelProps
 {
@@ -13,7 +14,13 @@ export class DatePanel extends React.Component<IDatePanelProps, {}>
     }
 
     passMonthToSecondReport(event) {
-        this.props.secondReportCallback(event.target.value);
+
+        let date: DateModel = {
+            month: Number(event.target.selectedIndex) + 1,
+            year: 2017
+        }
+
+        this.props.secondReportCallback(date);
     }
 
     render() {

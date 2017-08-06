@@ -1,6 +1,7 @@
 ﻿import * as React from "react";
 import { DatePanel } from "../SecondTypeReportApp/DatePanel"
 import { SecondReportModel } from "../../Models/SecondReportModel";
+import { DateModel } from "../../Models/DateModel"; 
 
 interface ISecondReportState
 {
@@ -9,8 +10,8 @@ interface ISecondReportState
 
 export class SecondReport extends React.Component<{}, ISecondReportState>
 {
-    getSecondReport(month: string) {
-        $.post("YouTrackData/GetPercentageReport", month, (data) => {
+    getSecondReport(date: DateModel) {
+        $.post("YouTrackData/GetPercentageReport", date, (data) => {
             this.setState({
                 secondReport: data
             });

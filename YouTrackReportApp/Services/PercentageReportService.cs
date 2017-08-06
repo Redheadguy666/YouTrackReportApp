@@ -14,13 +14,7 @@ namespace YouTrackReports.Services
         public IYouTrackDataService YouTrackDataService { get; set; }
         public List<PercentageReportModel> GetPercentageReport(DateModel date)
         {
-            var date_ = new DateModel()
-            {
-                Year = 2017,
-                Month = 06
-            };
-
-            var issues = this.YouTrackDataService.GetIssues(date_);
+            var issues = this.YouTrackDataService.GetIssues(date);
             var workItems = issues.SelectMany(l => l.WorkItems).ToList();
 
             var authorWorkItems = workItems

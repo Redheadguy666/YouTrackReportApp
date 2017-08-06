@@ -258,6 +258,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Components\Models\DateModel.ts" />
     <TypeScriptCompile Include="Components\Models\ProjectModel.ts" />
     <TypeScriptCompile Include="Components\Models\ReportModel.ts" />
     <TypeScriptCompile Include="Components\Models\SecondReportModel.ts" />

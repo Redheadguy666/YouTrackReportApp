@@ -25978,8 +25978,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const React = __webpack_require__(5);
 const DatePanel_1 = __webpack_require__(231);
 class SecondReport extends React.Component {
-    getSecondReport(month) {
-        $.post("YouTrackData/GetPercentageReport", month, (data) => {
+    getSecondReport(date) {
+        $.post("YouTrackData/GetPercentageReport", date, (data) => {
             this.setState({
                 secondReport: data
             });
@@ -26010,7 +26010,11 @@ class DatePanel extends React.Component {
         this.passMonthToSecondReport = this.passMonthToSecondReport.bind(this);
     }
     passMonthToSecondReport(event) {
-        this.props.secondReportCallback(event.target.value);
+        let date = {
+            month: Number(event.target.selectedIndex) + 1,
+            year: 2017
+        };
+        this.props.secondReportCallback(date);
     }
     render() {
         let months = ["январь", "февраль", "март", "апрель",
