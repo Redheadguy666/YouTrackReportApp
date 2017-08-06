@@ -1,9 +1,22 @@
 ﻿import * as React from "react";
 
-export class DatePanel extends React.Component<{}, {}>
+interface IDatePanelProps
 {
-    render() {
+    secondReportCallback?: any;
+}
 
+export class DatePanel extends React.Component<IDatePanelProps, {}>
+{
+    constructor(props: any) {
+        super(props);
+        this.passMonthToSecondReport = this.passMonthToSecondReport.bind(this);
+    }
+
+    passMonthToSecondReport(event) {
+        this.props.secondReportCallback(event.target.value);
+    }
+
+    render() {
         let months: string[] =
             ["январь", "февраль", "март", "апрель",
                 "май", "июнь", "июль", "август",
@@ -14,7 +27,7 @@ export class DatePanel extends React.Component<{}, {}>
         return (
             <div>
                 <h3>Месяц:</h3>
-                <select className="form-control">
+                <select className="form-control" onChange={(e) => this.passMonthToSecondReport(e)}>
                     {monthCollection}
                 </select>
             </div>

@@ -46,6 +46,7 @@ namespace YouTrackReportsApp.Services
             var month = date.Month < 10 ? "0" + date.Month.ToString() :
                 date.Month.ToString();
 
+            //TODO: Возвращать issues для всех проектов
             var query = "#{Docsvision Web-клиент} создана: " + year + "-" + month;
             //var query = "создана: " + year + "-" + month;
 

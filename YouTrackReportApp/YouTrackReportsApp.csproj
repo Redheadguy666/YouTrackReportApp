@@ -260,6 +260,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="Components\Models\ProjectModel.ts" />
     <TypeScriptCompile Include="Components\Models\ReportModel.ts" />
+    <TypeScriptCompile Include="Components\Models\SecondReportModel.ts" />
     <TypeScriptCompile Include="Components\Source\FirstTypeReportApp\FirstReport.tsx" />
     <TypeScriptCompile Include="Components\Source\Common\App.tsx" />
     <TypeScriptCompile Include="Components\Source\Common\index.tsx" />
@@ -311,7 +312,7 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>cd C:\Users\Slepov.V\VS Projects\YouTrackReportApp\YouTrackReportApp\
+    <PostBuildEvent>cd C:\Users\Redheadguy666\Desktop\YouTrackReportApp\YouTrackReportApp\
 webpack</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
