@@ -272,6 +272,7 @@
     <TypeScriptCompile Include="Components\Source\FirstTypeReportApp\ReportTable.tsx" />
     <TypeScriptCompile Include="Components\Source\SecondTypeReportApp\DatePanel.tsx" />
     <TypeScriptCompile Include="Components\Source\SecondTypeReportApp\SecondReport.tsx" />
+    <TypeScriptCompile Include="Components\Source\SecondTypeReportApp\SecondReportTable.tsx" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
