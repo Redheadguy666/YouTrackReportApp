@@ -16,6 +16,10 @@ namespace YouTrackReports.Services
         {
             var issues = this.YouTrackDataService.GetIssues(date);
             var workItems = issues.SelectMany(l => l.WorkItems).ToList();
+            var workingProjects = issues.GroupBy(l => l.ProjectShortName, l => l.ActualMark).ToList();
+
+
+
 
             var authorWorkItems = workItems
                 .GroupBy(l => l.Author)
@@ -23,7 +27,8 @@ namespace YouTrackReports.Services
                     new PercentageReportModel()
                     {
                         Developer = l.First().Author,
-                        WorkedOut = l.Sum(m => m.Duration) / 480
+                        WorkedOut = l.Sum(m => m.Duration) / 480,
+                        //WorkingProjects = l.
                     }
                 )
                 .OrderBy(l => l.Developer)

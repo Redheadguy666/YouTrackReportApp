@@ -9,10 +9,13 @@ namespace YouTrackReports.Models.Youtrack
     {
         public int Id { get; set; }
         public string Developer { get; set; }
-        public float ProductDays { get; set; }
-        public float ServicesDays { get; set; }
-        public float YearDays { get; set; }
-        public float Summary { get; set; }
+        public List<WorkingProjects> WorkingProjects { get; set; }
         public float WorkedOut { get; set; }
+    }
+
+    public class WorkingProjects
+    {
+        public string Name { get; set; }
+        public int Days { get; set; }
     }
 }
