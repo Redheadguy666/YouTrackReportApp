@@ -12,6 +12,7 @@ namespace YouTrackReportsApp.Models
     {
         public int PlanningMark { get; set; }
         public int ActualMark { get; set; }
+        public string ProjectShortName { get; set; }
         public List<WorkItemModel> WorkItems { get; set; }
         public IssueModel()
         {
@@ -23,6 +24,7 @@ namespace YouTrackReportsApp.Models
             {
                 this.PlanningMark = issue.оценка.Length != 0 ? Convert.ToInt32(issue.оценка[0]) : 0;     //Плановая трудоемкость;
                 this.ActualMark = issue.потрачено.Length != 0 ? Convert.ToInt32(issue.потрачено[0]) : 0; //Фактическая трудоемкость;
+                this.ProjectShortName = issue.projectShortName;
             }
             catch (RuntimeBinderException ex)
             {
