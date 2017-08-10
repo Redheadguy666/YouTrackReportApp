@@ -17,7 +17,18 @@ namespace YouTrackSharp.Issues
 
         public List<WorkItem> GetWorkItemsForIssue(string issueIdenifier)
         {
-            return this.connection.Get<List<WorkItem>>($"issue/{issueIdenifier}/timetracking/workitem");
+            List<WorkItem> workItems = new List<WorkItem>();
+
+            try
+            {
+                workItems = this.connection.Get<List<WorkItem>>($"issue/{issueIdenifier}/timetracking/workitem");
+            }
+            catch(Exception ex)
+            {
+                // Trace
+            }
+
+            return workItems;
         }
             
     }

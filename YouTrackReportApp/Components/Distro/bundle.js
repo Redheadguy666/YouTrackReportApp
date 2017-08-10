@@ -25984,7 +25984,7 @@ class ReportTable extends React.Component {
         this.props = {};
     }
     exportToExcel(tableData) {
-        let csv = "data:text/csv;charset=utf-8,";
+        let csv = "data:text/csv";
         let header = "№;Разработчик;Объем работ, чел/дней;Степень участия;" + "\n";
         csv += header;
         let rowString = "";

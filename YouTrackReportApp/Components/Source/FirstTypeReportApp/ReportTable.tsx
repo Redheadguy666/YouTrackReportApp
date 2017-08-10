@@ -16,7 +16,7 @@ export class ReportTable extends React.Component<IReportTableProps, {}>
     }
 
     exportToExcel(tableData: IndividualEmploymentModel[]) {
-        let csv = "data:text/csv;charset=utf-8,";
+        let csv = "data:text/csv"
         let header = "№;Разработчик;Объем работ, чел/дней;Степень участия;" + "\n";
         
         csv += header;

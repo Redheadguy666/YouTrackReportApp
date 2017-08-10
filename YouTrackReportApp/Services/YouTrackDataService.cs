@@ -8,6 +8,7 @@ using YouTrackSharp.Issues;
 
 using YouTrackReportsApp.Models;
 using YouTrackReports.Models.Youtrack;
+using YouTrackSharp.Projects;
 
 namespace YouTrackReportsApp.Services
 {
@@ -41,24 +42,29 @@ namespace YouTrackReportsApp.Services
         {
 
             var issuesManager = new IssueManagement(Connection);
+            var projectManager = new ProjectManagement(Connection);
+
+            var allProjects = projectManager.GetProjects();
 
             var year = date.Year.ToString();
             var month = date.Month < 10 ? "0" + date.Month.ToString() :
                 date.Month.ToString();
 
-            //TODO: Возвращать issues для всех проектов
-            var query = "#{Docsvision Web-клиент} создана: " + year + "-" + month;
-            //var query = "создана: " + year + "-" + month;
-
-            var issues = issuesManager.GetIssuesBySearch(query).ToList();
-
             var issuesModel = new List<IssueModel>();
 
-            foreach (var issue in issues)
+            foreach (var project in allProjects)
             {
-                var issueModel = new IssueModel();
-                issueModel.Initialize(issue, Connection);
-                issuesModel.Add(issueModel);
+                var query = "#{" + project.Name + "}" + " создана: " + year + "-" + month;
+
+                var issues = issuesManager.GetIssuesBySearch(query).ToList();
+
+                foreach (var issue in issues)
+                {
+                    var issueModel = new IssueModel();
+                    issueModel.Initialize(issue, Connection);
+                    issuesModel.Add(issueModel);
+                }
+
             }
 
             return issuesModel;
