@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using YouTrackReports.Models;
 using YouTrackReports.Models.Youtrack;
 using YouTrackReportsApp.Models;
 using YouTrackReportsApp.Services;
@@ -14,10 +15,20 @@ namespace YouTrackReports.Services
         public IYouTrackDataService YouTrackDataService { get; set; }
 
         const int MinutesInDay = 8 * 60;
-        public List<PercentageReportModel> GetPercentageReport(DateModel date)
+        public PercentageReportModel GetPercentageReport(DateModel date)
         {
+            var reportModel = new PercentageReportModel();
+
             var issues = this.YouTrackDataService.GetIssues(date);
-            
+
+            var developers = issues.SelectMany(l => l.WorkItems).Select(l => l.Author).Distinct().ToList();
+
+            reportModel.Developers = developers.Select(l => new Developer()
+            {
+                Id = l,
+                Name = l
+            }).ToList();
+
             var issuesByProjects = issues.GroupBy(l => l.ProjectShortName).ToDictionary(l => l.Key, l => l.ToList());
 
             // TODO: Получать кол-во дней для каждого проекта в отдельности
@@ -26,75 +37,37 @@ namespace YouTrackReports.Services
             {
                 var workItems = projectItem.Value.SelectMany(l => l.WorkItems).ToList();
 
-                workItems
+                var workItemsByAuthor = workItems
                     .GroupBy(l => l.Author)
-                    .Select(l => 
-                        new PercentageReportModel()
-                        {
-                            WorkingProjects = new List<WorkingProject>()
-                            {
-                                new WorkingProject()
-                                {
-                                    Developers = 
-                                }
-                            }
-                        }
-
+                    .Select(l => l.Sum(m => m.Duration) / MinutesInDay)
+                    .ToList();
 
             }
 
 
-
-            //foreach (var projectItem in issuesByProjects)
-            //{
-            //    var workItems = projectItem.Value.SelectMany(l => l.WorkItems).ToList();
-
-            //    // Массив issue's
-            //    workItems
-            //        .GroupBy(l => l.Author)
-            //        .Select(l =>
-            //            new PercentageReportModel()
-            //            {
-            //                Developer = l.First().Author,
-            //                WorkedOut = l.Sum(m => m.Duration) / MinutesInDay,
-            //                //WorkingProjects = l.
-            //            }
+            //var authorWorkItems = workItems
+            //    .GroupBy(l => l.Author)
+            //    .Select(l =>
+            //        new PercentageReportModel()
+            //        {
+            //            Developer = l.First().Author,
+            //            WorkedOut = l.Sum(m => m.Duration) / 480,
+            //            //WorkingProjects = l.
+            //        }
             //    )
             //    .OrderBy(l => l.Developer)
             //    .ToList();
+
+            //var position = 1;
+
+            //foreach (var authorWorkItem in authorWorkItems)
+            //{
+            //    authorWorkItem.Id = position;
+            //    position++;
             //}
 
-
-
-
-
-
-
-
-
-
-            var authorWorkItems = workItems
-                .GroupBy(l => l.Author)
-                .Select(l =>
-                    new PercentageReportModel()
-                    {
-                        Developer = l.First().Author,
-                        WorkedOut = l.Sum(m => m.Duration) / 480,
-                        //WorkingProjects = l.
-                    }
-                )
-                .OrderBy(l => l.Developer)
-                .ToList();
-
-            var position = 1;
-
-            foreach (var authorWorkItem in authorWorkItems)
-            {
-                authorWorkItem.Id = position;
-                position++;
-            }
-
-            return authorWorkItems;
+            //return authorWorkItems;
+            return null;
         }
     }
 }

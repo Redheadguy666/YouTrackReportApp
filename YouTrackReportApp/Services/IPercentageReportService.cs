@@ -7,6 +7,6 @@ namespace YouTrackReports.Services
 {
     public interface IPercentageReportService
     {
-        List<PercentageReportModel> GetPercentageReport(DateModel date);
+        PercentageReportModel GetPercentageReport(DateModel date);
     }
 }
