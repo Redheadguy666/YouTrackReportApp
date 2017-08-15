@@ -29,6 +29,7 @@ namespace YouTrackReports.Services
                 Name = l
             }).ToList();
 
+
             var issuesByProjects = issues.GroupBy(l => l.ProjectShortName).ToDictionary(l => l.Key, l => l.ToList());
 
             // TODO: Получать кол-во дней для каждого проекта в отдельности
@@ -44,19 +45,6 @@ namespace YouTrackReports.Services
 
             }
 
-
-            //var authorWorkItems = workItems
-            //    .GroupBy(l => l.Author)
-            //    .Select(l =>
-            //        new PercentageReportModel()
-            //        {
-            //            Developer = l.First().Author,
-            //            WorkedOut = l.Sum(m => m.Duration) / 480,
-            //            //WorkingProjects = l.
-            //        }
-            //    )
-            //    .OrderBy(l => l.Developer)
-            //    .ToList();
 
             //var position = 1;
 
