@@ -12,11 +12,63 @@ namespace YouTrackReports.Services
     {
         [Inject]
         public IYouTrackDataService YouTrackDataService { get; set; }
+
+        const int MinutesInDay = 8 * 60;
         public List<PercentageReportModel> GetPercentageReport(DateModel date)
         {
             var issues = this.YouTrackDataService.GetIssues(date);
-            var workItems = issues.SelectMany(l => l.WorkItems).ToList();
-            var workingProjects = issues.GroupBy(l => l.ProjectShortName, l => l.ActualMark).ToList();
+            
+            var issuesByProjects = issues.GroupBy(l => l.ProjectShortName).ToDictionary(l => l.Key, l => l.ToList());
+
+            // TODO: Получать кол-во дней для каждого проекта в отдельности
+
+            foreach (var projectItem in issuesByProjects)
+            {
+                var workItems = projectItem.Value.SelectMany(l => l.WorkItems).ToList();
+
+                workItems
+                    .GroupBy(l => l.Author)
+                    .Select(l => 
+                        new PercentageReportModel()
+                        {
+                            WorkingProjects = new List<WorkingProject>()
+                            {
+                                new WorkingProject()
+                                {
+                                    Developers = 
+                                }
+                            }
+                        }
+
+
+            }
+
+
+
+            //foreach (var projectItem in issuesByProjects)
+            //{
+            //    var workItems = projectItem.Value.SelectMany(l => l.WorkItems).ToList();
+
+            //    // Массив issue's
+            //    workItems
+            //        .GroupBy(l => l.Author)
+            //        .Select(l =>
+            //            new PercentageReportModel()
+            //            {
+            //                Developer = l.First().Author,
+            //                WorkedOut = l.Sum(m => m.Duration) / MinutesInDay,
+            //                //WorkingProjects = l.
+            //            }
+            //    )
+            //    .OrderBy(l => l.Developer)
+            //    .ToList();
+            //}
+
+
+
+
+
+
 
 
 

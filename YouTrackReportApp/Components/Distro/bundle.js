@@ -6987,7 +6987,7 @@ var createTransitionManager = function createTransitionManager() {
   };
 
   var confirmTransitionTo = function confirmTransitionTo(location, action, getUserConfirmation, callback) {
-    // TODO: If another transition starts while we're still confirming
+    // 
     // the previous one, we may end up in a weird state. Figure out the
     // best way to handle this.
     if (prompt != null) {
@@ -23722,7 +23722,7 @@ var createBrowserHistory = function createBrowserHistory() {
   var revertPop = function revertPop(fromLocation) {
     var toLocation = history.location;
 
-    // TODO: We could probably make this more reliable by
+    // 
     // keeping a list of keys we've seen in sessionStorage.
     // Instead, we just default to 0 for keys we don't know.
 
@@ -25488,7 +25488,7 @@ var createHashHistory = function createHashHistory() {
   var revertPop = function revertPop(fromLocation) {
     var toLocation = history.location;
 
-    // TODO: We could probably make this more reliable by
+    // 
     // keeping a list of paths we've seen in sessionStorage.
     // Instead, we just default to 0 for paths we don't know.
 
