@@ -15,6 +15,7 @@ namespace YouTrackReports.Services
         public IYouTrackDataService YouTrackDataService { get; set; }
 
         const int MinutesInDay = 8 * 60;
+
         public PercentageReportModel GetPercentageReport(DateModel date)
         {
             var reportModel = new PercentageReportModel();
@@ -27,7 +28,8 @@ namespace YouTrackReports.Services
             {
                 Id = l,
                 Name = l
-            }).ToList();
+            }).OrderBy(l => l.Name)
+            .ToList();
 
 
             var issuesByProjects = issues.GroupBy(l => l.ProjectShortName).ToDictionary(l => l.Key, l => l.ToList());
@@ -36,26 +38,27 @@ namespace YouTrackReports.Services
 
             foreach (var projectItem in issuesByProjects)
             {
+                // WorkItems всего проекта
                 var workItems = projectItem.Value.SelectMany(l => l.WorkItems).ToList();
 
-                var workItemsByAuthor = workItems
-                    .GroupBy(l => l.Author)
-                    .Select(l => l.Sum(m => m.Duration) / MinutesInDay)
-                    .ToList();
+                // Тут содержатся рабочие дни для ВСЕХ разработчиков 
+                //var workItemsByAuthor = workItems
+                //    .GroupBy(l => l.Author)
+                //    .Select(l => l.Sum(m => m.Duration) / MinutesInDay)
+                //    .ToList();
+
+                foreach (var item in reportModel.Developers)
+                {
+
+                }
+
+                var workingProject = new WorkingProject();
+                workingProject.Initialize(projectItem.Key, workItemsByAuthor);
+                reportModel.WorkingProjects.Add(workingProject);
 
             }
 
-
-            //var position = 1;
-
-            //foreach (var authorWorkItem in authorWorkItems)
-            //{
-            //    authorWorkItem.Id = position;
-            //    position++;
-            //}
-
-            //return authorWorkItems;
-            return null;
+            return reportModel;
         }
     }
 }

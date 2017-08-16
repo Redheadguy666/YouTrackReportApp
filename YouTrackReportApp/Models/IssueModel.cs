@@ -20,11 +20,12 @@ namespace YouTrackReportsApp.Models
         }
         public void Initialize(dynamic issue, IConnection connection)
         {
+            this.ProjectShortName = issue.projectShortName ?? String.Empty;
+
             try
             {
                 this.PlanningMark = issue.оценка.Length != 0 ? Convert.ToInt32(issue.оценка[0]) : 0;     //Плановая трудоемкость;
                 this.ActualMark = issue.потрачено.Length != 0 ? Convert.ToInt32(issue.потрачено[0]) : 0; //Фактическая трудоемкость;
-                this.ProjectShortName = issue.projectShortName;
             }
             catch (RuntimeBinderException ex)
             {

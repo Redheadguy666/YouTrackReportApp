@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.ApplicationInsights.Extensibility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -19,6 +20,7 @@ namespace YouTrackReportApp
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             YouTrackDataService initializer = new YouTrackDataService();
+            TelemetryConfiguration.Active.DisableTelemetry = true;
         }
     }
 }
