@@ -6,7 +6,7 @@ import { DateModel } from "../../Models/DateModel";
 
 interface ISecondReportState
 {
-    secondReport: SecondReportModel[];
+    secondReport: SecondReportModel;
 }
 
 export class SecondReport extends React.Component<{}, ISecondReportState>

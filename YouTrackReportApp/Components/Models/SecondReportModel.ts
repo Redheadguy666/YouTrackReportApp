@@ -1,12 +1,18 @@
 ﻿export class SecondReportModel
 {
-    developer: string;
+    developers: Developer[];
     workingProjects: WorkingProject[]
-    workedOut: number;
 }
 
 class WorkingProject
 {
     name: string;
-    days: number;
+    workingDays: number[];
+}
+
+class Developer
+{
+    id: string;
+    name: string;
+    daysSummary: number;
 }

@@ -28,7 +28,7 @@ namespace YouTrackReports.Models.Youtrack
         public void Initialize(string projectName, List<float> workingDays)
         {
             this.Name = projectName;
-            this.WorkingDays = workingDays;
+            this.WorkingDays = workingDays;     
         }
 
     }

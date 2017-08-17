@@ -24,13 +24,6 @@ namespace YouTrackReports.Services
 
             var developers = issues.SelectMany(l => l.WorkItems).Select(l => l.Author).Distinct().ToList();
 
-            reportModel.Developers = developers.Select(l => new Developer()
-            {
-                Id = l,
-                Name = l
-            }).OrderBy(l => l.Name)
-            .ToList();
-
             // Project -> IssueModel(ActualMark) -> WorkItems(Author)
             var issuesByProjects = issues.GroupBy(l => l.ProjectShortName).ToDictionary(l => l.Key, l => l.ToList());
 
@@ -46,8 +39,21 @@ namespace YouTrackReports.Services
                     .GroupBy(l => l.Author)
                     .ToDictionary(l => l.Key, l => l.Sum(m => m.Duration) / MinutesInDay);
 
-                var workItemsByDevelopers = new List<float>();
+                
+
+
+                reportModel.Developers = developers.Select(l => new Developer()
+                {
+                    Id = l,
+                    Name = l,
+                    DaysSummary = 
+                }).OrderBy(l => l.Name)
+                .ToList();
+
                 float workTime;
+
+                var workItemsByDevelopers = new List<float>();
+
                 foreach (var developer in reportModel.Developers)
                 {
                     if (!workItemsByAuthor.TryGetValue(developer.Id, out workTime))
