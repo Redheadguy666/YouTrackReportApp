@@ -44,7 +44,6 @@ namespace YouTrackReports.Services
                 // Тут содержатся рабочие дни для ВСЕХ разработчиков
                 var workItemsByAuthor = workItems
                     .GroupBy(l => l.Author)
-                    //.Select(l => l.Sum(m => m.Duration) / MinutesInDay)
                     .ToDictionary(l => l.Key, l => l.Sum(m => m.Duration) / MinutesInDay);
 
                 var workItemsByDevelopers = new List<float>();
