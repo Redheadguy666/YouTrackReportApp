@@ -26138,18 +26138,31 @@ class SecondReportTable extends React.Component {
     constructor(props) {
         super(props);
     }
+    mapProjectToWorkingDays(index) {
+        return this.props.secondReportData.workingProjects.map((project) => React.createElement("td", null, project.workingDays[index]));
+    }
     render() {
-        let secondReportTable = this.props.secondReportData ? this.props.secondReportData.map((dev) => React.createElement("tr", null,
-            React.createElement("td", null, dev.developer),
-            React.createElement("td", null, dev.workedOut))) : null;
+        let developers = this.props.secondReportData ? this.props.secondReportData.developers.map((developer, index) => {
+            let projectDays = this.props.secondReportData.workingProjects.map((project) => React.createElement("td", null, project.workingDays[index]));
+            return (React.createElement("tr", null,
+                React.createElement("td", null, developer.name),
+                projectDays));
+        }) : null;
+        let workingProjects = this.props.secondReportData ? this.props.secondReportData.workingProjects.map((project) => React.createElement("th", null, project.name)) : null;
+        //let workingDays: JSX.Element[][] = this.props.secondReportData ? this.props.secondReportData.workingProjects.map((project) =>
+        //    project.workingDays.map((days) =>
+        //        <tr>
+        //            <td>{days}</td>
+        //        </tr>)) : null;
         return (React.createElement("div", null,
             React.createElement("h4", null, "\u0412\u0442\u043E\u0440\u043E\u0439 \u043E\u0442\u0447\u0435\u0442:"),
             React.createElement("table", { className: "table table-bordered" },
                 React.createElement("thead", null,
                     React.createElement("tr", null,
-                        React.createElement("th", null, "\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u0447\u043A"),
-                        React.createElement("th", null, "\u041E\u0442\u0440\u0430\u0431\u043E\u0442\u0430\u043D\u043E \u0434\u043D\u0435\u0439"))),
-                React.createElement("tbody", null, secondReportTable))));
+                        React.createElement("th", null, "\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u0447\u0438\u043A"),
+                        workingProjects,
+                        React.createElement("th", null, "\u0418\u0442\u043E\u0433\u043E"))),
+                React.createElement("tbody", null, developers))));
     }
 }
 exports.SecondReportTable = SecondReportTable;
