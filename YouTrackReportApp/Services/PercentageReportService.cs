@@ -31,31 +31,33 @@ namespace YouTrackReports.Services
             }).OrderBy(l => l.Name)
             .ToList();
 
-
+            // Project -> IssueModel(ActualMark) -> WorkItems(Author)
             var issuesByProjects = issues.GroupBy(l => l.ProjectShortName).ToDictionary(l => l.Key, l => l.ToList());
 
             // TODO: Получать кол-во дней для каждого проекта в отдельности
 
             foreach (var projectItem in issuesByProjects)
             {
-                // WorkItems всего проекта
+                // WorkItems всех IssueModel текущего проекта
                 var workItems = projectItem.Value.SelectMany(l => l.WorkItems).ToList();
 
-                // Тут содержатся рабочие дни для ВСЕХ разработчиков 
-                //var workItemsByAuthor = workItems
-                //    .GroupBy(l => l.Author)
-                //    .Select(l => l.Sum(m => m.Duration) / MinutesInDay)
-                //    .ToList();
+                // Тут содержатся рабочие дни для ВСЕХ разработчиков
+                var workItemsByAuthor = workItems
+                    .GroupBy(l => l.Author)
+                    .Select(l => l.Sum(m => m.Duration) / MinutesInDay)
+                    .ToList();
 
-                foreach (var item in reportModel.Developers)
+                foreach (var developer in reportModel.Developers)
                 {
-
+                    if (workItems.Find(l => l.Author == developer.Name) == null)
+                    {
+                        workItemsByAuthor.Add(0);
+                    }
                 }
 
                 var workingProject = new WorkingProject();
                 workingProject.Initialize(projectItem.Key, workItemsByAuthor);
                 reportModel.WorkingProjects.Add(workingProject);
-
             }
 
             return reportModel;
