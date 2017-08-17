@@ -44,19 +44,23 @@ namespace YouTrackReports.Services
                 // Тут содержатся рабочие дни для ВСЕХ разработчиков
                 var workItemsByAuthor = workItems
                     .GroupBy(l => l.Author)
-                    .Select(l => l.Sum(m => m.Duration) / MinutesInDay)
-                    .ToList();
+                    //.Select(l => l.Sum(m => m.Duration) / MinutesInDay)
+                    .ToDictionary(l => l.Key, l => l.Sum(m => m.Duration) / MinutesInDay);
 
+                var workItemsByDevelopers = new List<float>();
+                float workTime;
                 foreach (var developer in reportModel.Developers)
                 {
-                    if (workItems.Find(l => l.Author == developer.Name) == null)
+                    if (!workItemsByAuthor.TryGetValue(developer.Id, out workTime))
                     {
-                        workItemsByAuthor.Add(0);
+                        workTime = 0;         
                     }
+
+                    workItemsByDevelopers.Add(workTime);
                 }
 
                 var workingProject = new WorkingProject();
-                workingProject.Initialize(projectItem.Key, workItemsByAuthor);
+                workingProject.Initialize(projectItem.Key, workItemsByDevelopers);
                 reportModel.WorkingProjects.Add(workingProject);
             }
 
