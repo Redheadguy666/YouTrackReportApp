@@ -13,7 +13,7 @@ export class ReportSummary extends React.Component<IReportSummaryProps, {}>
         let summary = this.props.reportSummary;
 
         return (
-            <div>
+            <div className="container">
                 <dl className="inline text-center">
                     <dt>Общая плановая трудоемкость разработки(ч/д):</dt> <dd>{summary ? summary.sumPlanningMark : null}</dd>
                     <dt>Общая фактическая трудоемкость разработки(ч/д):</dt> <dd>{summary ? summary.sumActualMark : null}</dd>

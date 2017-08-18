@@ -25949,7 +25949,7 @@ class ProjectInfo extends React.Component {
         let projects = this.props.recievedProjects ? this.props.recievedProjects.map((project) => React.createElement("option", { key: project.id }, project.name)) : null;
         let projectVersions = this.state.projectVersions ? this.state.projectVersions.map((version) => React.createElement("option", { key: version }, version)) : null;
         let buttonState = !(this.state.currentProject && this.state.currentProjectVersion);
-        return (React.createElement("div", { className: "container" },
+        return (React.createElement("div", { id: "projectInfo", className: "container " },
             React.createElement("table", { className: "table table-bordered" },
                 React.createElement("thead", null,
                     React.createElement("tr", null,
@@ -25957,14 +25957,14 @@ class ProjectInfo extends React.Component {
                         React.createElement("th", null, "\u0417\u043D\u0430\u0447\u0435\u043D\u0438\u0435"))),
                 React.createElement("tbody", null,
                     React.createElement("tr", null,
-                        React.createElement("td", null, "\u041F\u0440\u043E\u0435\u043A\u0442:"),
+                        React.createElement("td", { className: "col-md-offset-6" }, "\u041F\u0440\u043E\u0435\u043A\u0442:"),
                         React.createElement("td", null,
                             React.createElement("select", { className: "form-control", onChange: this.handleProjectSelectChanged }, projects))),
                     React.createElement("tr", null,
                         React.createElement("td", null, "\u0412\u0435\u0440\u0441\u0438\u044F \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u0430:"),
                         React.createElement("td", null,
                             React.createElement("select", { className: "form-control", onChange: this.handleProjectVersionSelectChanged }, projectVersions))))),
-            React.createElement("button", { className: "btn btn-primary", disabled: buttonState, onClick: this.getReportForProject }, "\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u043E\u0442\u0447\u0435\u0442")));
+            React.createElement("button", { id: "getReportButton", className: "btn btn-primary", disabled: buttonState, onClick: this.getReportForProject }, "\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u043E\u0442\u0447\u0435\u0442")));
     }
 }
 exports.ProjectInfo = ProjectInfo;
@@ -26019,7 +26019,7 @@ class ReportTable extends React.Component {
             React.createElement("h4", null,
                 "\u0418\u043D\u0434\u0438\u0432\u0438\u0434\u0443\u0430\u043B\u044C\u043D\u0430\u044F \u0437\u0430\u043D\u044F\u0442\u043E\u0441\u0442\u044C \u0438 \u0441\u0442\u0435\u043F\u0435\u043D\u044C \u0443\u0447\u0430\u0441\u0442\u0438\u044F:",
                 React.createElement("span", null,
-                    React.createElement("button", { disabled: buttonState, onClick: () => this.exportToExcel(this.props.employmentTable), className: "btn btn-sm btn-primary" }, "\u042D\u043A\u0441\u043F\u043E\u0440\u0442 \u0432 Excel"))),
+                    React.createElement("button", { disabled: buttonState, id: "excelExportButton", onClick: () => this.exportToExcel(this.props.employmentTable), className: "btn btn-sm btn-primary" }, "\u042D\u043A\u0441\u043F\u043E\u0440\u0442 \u0432 Excel"))),
             React.createElement("table", { className: "table table-bordered", id: "employersTable" },
                 React.createElement("thead", null,
                     React.createElement("tr", null,
@@ -26044,7 +26044,7 @@ const React = __webpack_require__(4);
 class ReportSummary extends React.Component {
     render() {
         let summary = this.props.reportSummary;
-        return (React.createElement("div", null,
+        return (React.createElement("div", { className: "container" },
             React.createElement("dl", { className: "inline text-center" },
                 React.createElement("dt", null, "\u041E\u0431\u0449\u0430\u044F \u043F\u043B\u0430\u043D\u043E\u0432\u0430\u044F \u0442\u0440\u0443\u0434\u043E\u0435\u043C\u043A\u043E\u0441\u0442\u044C \u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0438(\u0447/\u0434):"),
                 " ",
@@ -26104,23 +26104,46 @@ const React = __webpack_require__(4);
 class DatePanel extends React.Component {
     constructor(props) {
         super(props);
-        this.passMonthToSecondReport = this.passMonthToSecondReport.bind(this);
+        this.passDateToSecondReport = this.passDateToSecondReport.bind(this);
     }
-    passMonthToSecondReport(event) {
+    passDateToSecondReport() {
         let date = {
-            month: Number(event.target.selectedIndex) + 1,
-            year: 2017
+            month: this.state.currentMonth,
+            year: this.state.currentYear
         };
         this.props.secondReportCallback(date);
     }
+    monthSelectChangedHandler(event) {
+        this.setState({
+            currentMonth: Number(event.target.selectedIndex) + 1
+        });
+    }
+    yearSelectChangedHandler(event) {
+        console.log(event.target);
+        this.setState({
+            currentYear: Number(event.target.value)
+        });
+    }
     render() {
-        let months = ["январь", "февраль", "март", "апрель",
-            "май", "июнь", "июль", "август",
-            "сентябрь", "октябрь", "ноябрь", "декабрь"];
+        let months = ["Январь", "Февраль", "Март", "Апрель",
+            "Май", "Июнь", "Июль", "Август",
+            "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+        let date = new Date();
+        let currentYear = date.getFullYear();
+        let years = [currentYear];
+        let futureYears = currentYear - 2017;
+        for (let i = 0; i < futureYears; i++) {
+            currentYear++;
+            years.push(currentYear);
+        }
         let monthCollection = months.map((month) => (React.createElement("option", { key: month }, month)));
+        let yearsCollection = years.map((year) => (React.createElement("option", { key: year }, year)));
         return (React.createElement("div", null,
             React.createElement("h3", null, "\u041C\u0435\u0441\u044F\u0446:"),
-            React.createElement("select", { className: "form-control", onChange: (e) => this.passMonthToSecondReport(e) }, monthCollection)));
+            React.createElement("select", { id: "monthPicker", className: "form-control", onChange: (e) => this.monthSelectChangedHandler(e) }, monthCollection),
+            React.createElement("h3", null, "\u0413\u043E\u0434:"),
+            React.createElement("select", { id: "yearPicker", className: "form-control", onClick: (e) => this.yearSelectChangedHandler(e) }, yearsCollection),
+            React.createElement("button", { className: "btn btn-primary", onClick: this.passDateToSecondReport }, "\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u043E\u0442\u0447\u0435\u0442")));
     }
 }
 exports.DatePanel = DatePanel;
