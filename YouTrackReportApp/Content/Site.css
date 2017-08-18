@@ -15,9 +15,9 @@ dl.inline dd + dd {
     
 }
 
-.table-bordered{
-    /*width: auto;
-    margin: auto*/
+#projectInfo{
+    width: auto;
+    margin: auto
 }
 
 #getReportButton{

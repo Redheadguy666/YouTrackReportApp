@@ -25950,7 +25950,7 @@ class ProjectInfo extends React.Component {
         let projectVersions = this.state.projectVersions ? this.state.projectVersions.map((version) => React.createElement("option", { key: version }, version)) : null;
         let buttonState = !(this.state.currentProject && this.state.currentProjectVersion);
         return (React.createElement("div", { id: "projectInfo", className: "container " },
-            React.createElement("table", { className: "table table-bordered" },
+            React.createElement("table", { className: "table table-striped" },
                 React.createElement("thead", null,
                     React.createElement("tr", null,
                         React.createElement("th", null, "\u041F\u0430\u0440\u0430\u043C\u0435\u0442\u0440"),
@@ -26104,12 +26104,29 @@ const React = __webpack_require__(4);
 class DatePanel extends React.Component {
     constructor(props) {
         super(props);
+        this.startYear = 2017;
+        this.months = ["Январь", "Февраль", "Март", "Апрель",
+            "Май", "Июнь", "Июль", "Август",
+            "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+        this.years = [];
+        this.state = {
+            currentMonth: 0,
+            currentYear: this.startYear
+        };
+        let date = new Date();
+        let currentYear = date.getFullYear();
+        this.years.push(currentYear);
+        let futureYears = currentYear - this.startYear;
+        for (let i = 0; i < futureYears; i++) {
+            currentYear++;
+            this.years.push(currentYear);
+        }
         this.passDateToSecondReport = this.passDateToSecondReport.bind(this);
     }
     passDateToSecondReport() {
         let date = {
-            month: this.state.currentMonth,
-            year: this.state.currentYear
+            month: Number(this.state.currentMonth),
+            year: Number(this.state.currentYear)
         };
         this.props.secondReportCallback(date);
     }
@@ -26119,30 +26136,18 @@ class DatePanel extends React.Component {
         });
     }
     yearSelectChangedHandler(event) {
-        console.log(event.target);
         this.setState({
             currentYear: Number(event.target.value)
         });
     }
     render() {
-        let months = ["Январь", "Февраль", "Март", "Апрель",
-            "Май", "Июнь", "Июль", "Август",
-            "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
-        let date = new Date();
-        let currentYear = date.getFullYear();
-        let years = [currentYear];
-        let futureYears = currentYear - 2017;
-        for (let i = 0; i < futureYears; i++) {
-            currentYear++;
-            years.push(currentYear);
-        }
-        let monthCollection = months.map((month) => (React.createElement("option", { key: month }, month)));
-        let yearsCollection = years.map((year) => (React.createElement("option", { key: year }, year)));
+        let monthCollection = this.months.map((month) => (React.createElement("option", { key: month }, month)));
+        let yearsCollection = this.years.map((year) => (React.createElement("option", { key: year }, year)));
         return (React.createElement("div", null,
             React.createElement("h3", null, "\u041C\u0435\u0441\u044F\u0446:"),
             React.createElement("select", { id: "monthPicker", className: "form-control", onChange: (e) => this.monthSelectChangedHandler(e) }, monthCollection),
             React.createElement("h3", null, "\u0413\u043E\u0434:"),
-            React.createElement("select", { id: "yearPicker", className: "form-control", onClick: (e) => this.yearSelectChangedHandler(e) }, yearsCollection),
+            React.createElement("select", { id: "yearPicker", className: "form-control", onChange: (e) => this.yearSelectChangedHandler(e) }, yearsCollection),
             React.createElement("button", { className: "btn btn-primary", onClick: this.passDateToSecondReport }, "\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u043E\u0442\u0447\u0435\u0442")));
     }
 }

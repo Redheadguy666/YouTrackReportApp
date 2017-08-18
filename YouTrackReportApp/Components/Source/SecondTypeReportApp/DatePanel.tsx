@@ -8,22 +8,46 @@ interface IDatePanelProps
 
 interface IDataPanelState
 {
-    currentMonth: any;
-    currentYear: any;
+    currentMonth: number;
+    currentYear: number;
 }
 
 export class DatePanel extends React.Component<IDatePanelProps, IDataPanelState>
 {
+    private startYear = 2017;
+
+    months: string[] =
+    ["Январь", "Февраль", "Март", "Апрель",
+        "Май", "Июнь", "Июль", "Август",
+        "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+
+    years: number[] = [];
+
+    state: IDataPanelState = {
+        currentMonth: 0,
+        currentYear: this.startYear
+    };
+
     constructor(props: any) {
         super(props);
+        let date = new Date();
+        let currentYear = date.getFullYear();
+        this.years.push(currentYear);
+        let futureYears = currentYear - this.startYear;
+
+        for (let i = 0; i < futureYears; i++) {
+            currentYear++;
+            this.years.push(currentYear);
+        }
+       
         this.passDateToSecondReport = this.passDateToSecondReport.bind(this);
     }
 
     passDateToSecondReport() {
 
         let date: DateModel = {
-            month: this.state.currentMonth,
-            year: this.state.currentYear
+            month: Number(this.state.currentMonth),
+            year: Number(this.state.currentYear)
         }
 
         this.props.secondReportCallback(date);
@@ -36,40 +60,24 @@ export class DatePanel extends React.Component<IDatePanelProps, IDataPanelState>
     }
 
     yearSelectChangedHandler(event) {
-        console.log(event.target);
         this.setState({
             currentYear: Number(event.target.value)
         });
     }
 
     render() {
-        let months: string[] =
-            ["Январь", "Февраль", "Март", "Апрель",
-                "Май", "Июнь", "Июль", "Август",
-                "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
 
-        let date = new Date();
-        let currentYear = date.getFullYear();
-        let years: number[] = [currentYear];
-        let futureYears = currentYear - 2017
-
-        for (let i = 0; i < futureYears; i++) {
-            currentYear++;
-            years.push(currentYear);
-        }
-
-        let monthCollection: JSX.Element[] = months.map((month) => (<option key={month}>{month}</option>));
-        let yearsCollection: JSX.Element[] = years.map((year) => (<option key={year}>{year}</option>));
-
+        let monthCollection: JSX.Element[] = this.months.map((month) => (<option key={month}>{month}</option>));
+        let yearsCollection: JSX.Element[] = this.years.map((year) => (<option key={year}>{year}</option>));
 
         return (
-            <div>
+            <div >
                 <h3>Месяц:</h3>
                 <select id="monthPicker" className="form-control" onChange={(e) => this.monthSelectChangedHandler(e)}>
                     {monthCollection}
                 </select>
                 <h3>Год:</h3>
-                <select id="yearPicker" className="form-control" onClick={(e) => this.yearSelectChangedHandler(e)}>
+                <select id="yearPicker" className="form-control" onChange={(e) => this.yearSelectChangedHandler(e)}>
                     {yearsCollection}
                 </select>
                 <button className="btn btn-primary" onClick={this.passDateToSecondReport}>Получить отчет</button>
