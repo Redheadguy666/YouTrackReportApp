@@ -10,10 +10,10 @@ export class ReportNavbar extends React.Component<{}, {}>
                     <div className="container-fluid">
                         <ul className="nav navbar-nav">
                             <li className="active dropdown">
-                                <Link to="/">Первый отчет</Link>
+                                <Link to="/">Отчет о производстве</Link>
                             </li>
                             <li>
-                                <Link to="/second-report">Второй отчет</Link>
+                                <Link to="/second-report">Процентовки</Link>
                             </li>
                         </ul>
                     </div>

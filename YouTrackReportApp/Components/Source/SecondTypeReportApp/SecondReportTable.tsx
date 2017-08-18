@@ -40,7 +40,7 @@ export class SecondReportTable extends React.Component<ISecondReportProps, {}>
 
         return (
             <div>
-                <h4>Второй отчет:</h4>
+                <h4>Процентовки:</h4>
                 <table className= "table table-bordered">
                     <thead>
                         <tr>

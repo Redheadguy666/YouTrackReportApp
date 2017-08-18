@@ -72,7 +72,7 @@ export class ProjectInfo extends React.Component<IProjectInfoProps, {}>
 
         let buttonState = !(this.state.currentProject && this.state.currentProjectVersion);
         return (
-            <div>
+            <div className="container">
                 <table className="table table-bordered">
                     <thead>
                         <tr>
