@@ -69,7 +69,7 @@ namespace YouTrackSharp.CmdLets
                 var similarIssues =
                     IssueManagement.GetIssuesBySearch(string.Format("project: {0} \"{1}\" \"{2}\"", ProjectShortName, Summary, Description));
 
-                // TODO: Fix this once issues work again with dynamic type
+                
                 //var issueList = from si in similarIssues
                 //                select new {IssueId = si.Id, Summary = si.Summary, Description = si.Description};
 

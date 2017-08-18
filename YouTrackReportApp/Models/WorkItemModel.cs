@@ -10,7 +10,7 @@ namespace YouTrackReportsApp.Models
         public string Id { get; set; }
         public long Date { get; set; }
         public long Created { get; set; }
-        public int Duration { get; set; }
+        public float Duration { get; set; }
         public string Description { get; set; }
         public string Author { get; set; }
         public void Inintialize(dynamic workingItem)

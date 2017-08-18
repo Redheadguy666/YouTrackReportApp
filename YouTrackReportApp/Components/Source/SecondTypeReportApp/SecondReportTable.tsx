@@ -5,7 +5,7 @@ import { DateModel } from "../../Models/DateModel";
 
 interface ISecondReportProps
 {
-    secondReportData?: SecondReportModel[];
+    secondReportData?: SecondReportModel;
 }
 
 export class SecondReportTable extends React.Component<ISecondReportProps, {}>
@@ -14,13 +14,29 @@ export class SecondReportTable extends React.Component<ISecondReportProps, {}>
         super(props);
     }
 
+    mapProjectToWorkingDays(index) : JSX.Element[] {
+       return this.props.secondReportData.workingProjects.map((project) =>
+            <td>{project.workingDays[index]}</td>)
+    }
+
     render() {
 
-        let secondReportTable: JSX.Element[] = this.props.secondReportData ? this.props.secondReportData.map((dev) => 
-            <tr>
-                <td>{dev.developer}</td>
-                <td>{dev.workedOut}</td>
-            </tr>) : null;
+        let developers = this.props.secondReportData ? this.props.secondReportData.developers.map((developer, index) => {
+
+            let projectDays = this.props.secondReportData.workingProjects.map((project) =>
+                <td>{project.workingDays[index]}</td>);
+
+            return (
+                <tr>
+                    <td>{developer.name}</td>
+                    {projectDays}
+                    <td>{developer.daysSummary}</td>
+                </tr>)
+            }) : null; 
+           
+
+        let workingProjects: JSX.Element[] = this.props.secondReportData ? this.props.secondReportData.workingProjects.map((project) =>
+            <th>{project.name}</th>) : null;
 
         return (
             <div>
@@ -28,12 +44,13 @@ export class SecondReportTable extends React.Component<ISecondReportProps, {}>
                 <table className= "table table-bordered">
                     <thead>
                         <tr>
-                            <th>Разработчк</th>
-                            <th>Отработано дней</th>
+                            <th>Разработчик</th>
+                            {workingProjects}
+                            <th>Итого</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {secondReportTable}
+                        {developers}
                     </tbody>
                 </table>
             </div>

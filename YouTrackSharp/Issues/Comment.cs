@@ -38,7 +38,6 @@ namespace YouTrackSharp.Issues
     public class Comment
     {
         public string Author { get; set; }
-        // TODO:Convert this to datetime
         public Int64 Created { get; set; }
         public string Text { get; set; }
     }

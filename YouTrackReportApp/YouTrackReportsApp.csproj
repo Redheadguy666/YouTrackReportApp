@@ -179,6 +179,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Developer.cs" />
     <Compile Include="Models\IssueModel.cs" />
     <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="Models\WorkItemModel.cs" />
@@ -314,7 +315,7 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>cd C:\Users\Slepov.V\VS Projects\YouTrackReportApp\YouTrackReportApp
+    <PostBuildEvent>cd C:\Users\Redheadguy666\Desktop\YouTrackReportApp\YouTrackReportApp
 webpack</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

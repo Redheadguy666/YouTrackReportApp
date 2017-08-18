@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using YouTrackReports.Models;
 using YouTrackReports.Models.Youtrack;
 using YouTrackReportsApp.Models;
 using YouTrackReportsApp.Services;
@@ -12,37 +13,73 @@ namespace YouTrackReports.Services
     {
         [Inject]
         public IYouTrackDataService YouTrackDataService { get; set; }
-        public List<PercentageReportModel> GetPercentageReport(DateModel date)
+
+        const int MinutesInDay = 8 * 60;
+
+        public PercentageReportModel GetPercentageReport(DateModel date)
         {
+            var reportModel = new PercentageReportModel();
+
             var issues = this.YouTrackDataService.GetIssues(date);
-            var workItems = issues.SelectMany(l => l.WorkItems).ToList();
-            var workingProjects = issues.GroupBy(l => l.ProjectShortName, l => l.ActualMark).ToList();
 
+            var developers = issues.SelectMany(l => l.WorkItems).Select(l => l.Author).Distinct().ToList();
 
-
-
-            var authorWorkItems = workItems
-                .GroupBy(l => l.Author)
-                .Select(l =>
-                    new PercentageReportModel()
-                    {
-                        Developer = l.First().Author,
-                        WorkedOut = l.Sum(m => m.Duration) / 480,
-                        //WorkingProjects = l.
-                    }
-                )
-                .OrderBy(l => l.Developer)
+            reportModel.Developers = developers.Select(l => new Developer()
+            {
+                Id = l,
+                Name = l,
+                }).OrderBy(l => l.Name)
                 .ToList();
 
-            var position = 1;
+            // Project -> IssueModel(ActualMark) -> WorkItems(Author)
+            var issuesByProjects = issues.GroupBy(l => l.ProjectShortName).ToDictionary(l => l.Key, l => l.ToList());
 
-            foreach (var authorWorkItem in authorWorkItems)
+            // TODO: Получать кол-во дней для каждого проекта в отдельности
+
+            foreach (var projectItem in issuesByProjects)
             {
-                authorWorkItem.Id = position;
-                position++;
+                // WorkItems всех IssueModel текущего проекта
+                var workItems = projectItem.Value.SelectMany(l => l.WorkItems).ToList();
+
+                // Тут содержатся рабочие дни для ВСЕХ разработчиков ОДНОГО проекта
+                var workItemsByAuthor = workItems
+                    .GroupBy(l => l.Author)
+                    .ToDictionary(l => l.Key, l => l.Sum(m => m.Duration) / MinutesInDay);
+                
+                float workTime;
+
+                var workItemsByDevelopers = new List<float>();
+
+                foreach (var developer in reportModel.Developers)
+                {
+                    if (!workItemsByAuthor.TryGetValue(developer.Id, out workTime))
+                    {
+                        workTime = 0;         
+                    }
+
+                    workItemsByDevelopers.Add(workTime);
+                }
+
+                var workingProject = new WorkingProject();
+                workingProject.Initialize(projectItem.Key, workItemsByDevelopers);
+                reportModel.WorkingProjects.Add(workingProject);
             }
 
-            return authorWorkItems;
+            var sum = 0.0f;
+
+
+            foreach (var developer in reportModel.Developers)
+            {
+                sum = 0.0f;
+
+                foreach (var workingItem in reportModel.WorkingProjects)
+                {
+                    sum += workingItem.WorkingDays[reportModel.Developers.IndexOf(developer)];
+                    developer.DaysSummary = sum;
+                }
+            }
+
+            return reportModel;
         }
     }
 }
