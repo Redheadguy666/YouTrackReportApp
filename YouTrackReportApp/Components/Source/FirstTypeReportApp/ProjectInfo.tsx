@@ -72,7 +72,7 @@ export class ProjectInfo extends React.Component<IProjectInfoProps, {}>
 
         let buttonState = !(this.state.currentProject && this.state.currentProjectVersion);
         return (
-            <div className="container">
+            <div id="projectInfo" className="container ">
                 <table className="table table-bordered">
                     <thead>
                         <tr>
@@ -82,7 +82,7 @@ export class ProjectInfo extends React.Component<IProjectInfoProps, {}>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Проект:</td>
+                            <td className="col-md-offset-6">Проект:</td>
                             <td>
                                 <select className="form-control" onChange={this.handleProjectSelectChanged}>
                                     {projects}
@@ -99,7 +99,7 @@ export class ProjectInfo extends React.Component<IProjectInfoProps, {}>
                         </tr>
                     </tbody>
                 </table>
-                <button className="btn btn-primary" disabled={buttonState} onClick={this.getReportForProject}>Получить отчет</button>
+                <button id="getReportButton" className="btn btn-primary" disabled={buttonState} onClick={this.getReportForProject}>Получить отчет</button>
             </div>
         );
     }

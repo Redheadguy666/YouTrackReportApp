@@ -1,6 +1,6 @@
 ﻿dl.inline dt, dl.inline dd {
     float: left;
-    margin: 0 0.5em 0 0;
+    margin: auto;
 }
 
 dl.inline dd + dt, dl.inline dd + dd {
@@ -9,4 +9,25 @@ dl.inline dd + dt, dl.inline dd + dd {
 
 dl.inline dd + dd {
     float: none
+}
+
+#excelExportButton{
+    
+}
+
+.table-bordered{
+    /*width: auto;
+    margin: auto*/
+}
+
+#getReportButton{
+    margin-left:inherit
+}
+
+#monthPicker{
+    width:auto
+}
+
+#yearPicker{
+    width:auto
 }
