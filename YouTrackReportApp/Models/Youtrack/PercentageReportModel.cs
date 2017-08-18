@@ -17,7 +17,7 @@ namespace YouTrackReports.Models.Youtrack
     }
 
     public class WorkingProject
-    {
+    {   
         public string Name { get; set; }
         public List<float> WorkingDays { get; set; }
         public WorkingProject()

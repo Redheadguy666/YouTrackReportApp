@@ -30,6 +30,7 @@ export class SecondReportTable extends React.Component<ISecondReportProps, {}>
                 <tr>
                     <td>{developer.name}</td>
                     {projectDays}
+                    <td>{developer.daysSummary}</td>
                 </tr>)
             }) : null; 
            

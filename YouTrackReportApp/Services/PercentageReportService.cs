@@ -24,6 +24,13 @@ namespace YouTrackReports.Services
 
             var developers = issues.SelectMany(l => l.WorkItems).Select(l => l.Author).Distinct().ToList();
 
+            reportModel.Developers = developers.Select(l => new Developer()
+            {
+                Id = l,
+                Name = l,
+                }).OrderBy(l => l.Name)
+                .ToList();
+
             // Project -> IssueModel(ActualMark) -> WorkItems(Author)
             var issuesByProjects = issues.GroupBy(l => l.ProjectShortName).ToDictionary(l => l.Key, l => l.ToList());
 
@@ -34,22 +41,11 @@ namespace YouTrackReports.Services
                 // WorkItems всех IssueModel текущего проекта
                 var workItems = projectItem.Value.SelectMany(l => l.WorkItems).ToList();
 
-                // Тут содержатся рабочие дни для ВСЕХ разработчиков
+                // Тут содержатся рабочие дни для ВСЕХ разработчиков ОДНОГО проекта
                 var workItemsByAuthor = workItems
                     .GroupBy(l => l.Author)
                     .ToDictionary(l => l.Key, l => l.Sum(m => m.Duration) / MinutesInDay);
-
                 
-
-
-                reportModel.Developers = developers.Select(l => new Developer()
-                {
-                    Id = l,
-                    Name = l,
-                    DaysSummary = 
-                }).OrderBy(l => l.Name)
-                .ToList();
-
                 float workTime;
 
                 var workItemsByDevelopers = new List<float>();
@@ -67,6 +63,20 @@ namespace YouTrackReports.Services
                 var workingProject = new WorkingProject();
                 workingProject.Initialize(projectItem.Key, workItemsByDevelopers);
                 reportModel.WorkingProjects.Add(workingProject);
+            }
+
+            var sum = 0.0f;
+
+
+            foreach (var developer in reportModel.Developers)
+            {
+                sum = 0.0f;
+
+                foreach (var workingItem in reportModel.WorkingProjects)
+                {
+                    sum += workingItem.WorkingDays[reportModel.Developers.IndexOf(developer)];
+                    developer.DaysSummary = sum;
+                }
             }
 
             return reportModel;
