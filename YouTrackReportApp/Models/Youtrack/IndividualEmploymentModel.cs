@@ -9,7 +9,7 @@ namespace YouTrackReports.Models.Youtrack
     {
         public int Id { get; set; }
         public string Developer { get; set; }
-        public float ScopeOfWork { get; set; }
-        public float ParticipationDegree { get; set; }
+        public double ScopeOfWork { get; set; }
+        public double ParticipationDegree { get; set; }
     }
 }

@@ -17,7 +17,7 @@ dl.inline dd + dd {
 }
 
 #projectInfo{
-    margin-left: 5px;
+    
 }
 
 #projectContent {
@@ -30,6 +30,7 @@ dl.inline dd + dd {
 
 #excelExportButton {
     float: right;
+    margin-bottom: 8px;
 }
 
 #getReportButton {
@@ -49,7 +50,7 @@ dl.inline dd + dd {
 }
 
 #datePanel{
-    width: 18%;
+    width: 13%;
     margin-left: 5px;
 }
 

@@ -46,9 +46,9 @@ namespace YouTrackReports.Services
                     .GroupBy(l => l.Author)
                     .ToDictionary(l => l.Key, l => l.Sum(m => m.Duration) / MinutesInDay);
                 
-                float workTime;
+                double workTime;
 
-                var workItemsByDevelopers = new List<float>();
+                var workItemsByDevelopers = new List<double>();
 
                 foreach (var developer in reportModel.Developers)
                 {
@@ -57,7 +57,7 @@ namespace YouTrackReports.Services
                         workTime = 0;         
                     }
 
-                    workItemsByDevelopers.Add(workTime);
+                    workItemsByDevelopers.Add(Math.Round(workTime, 1));
                 }
 
                 var workingProject = new WorkingProject();
@@ -65,17 +65,17 @@ namespace YouTrackReports.Services
                 reportModel.WorkingProjects.Add(workingProject);
             }
 
-            var sum = 0.0f;
+            var sum = 0.0;
 
 
             foreach (var developer in reportModel.Developers)
             {
-                sum = 0.0f;
+                sum = 0.0;
 
                 foreach (var workingItem in reportModel.WorkingProjects)
                 {
                     sum += workingItem.WorkingDays[reportModel.Developers.IndexOf(developer)];
-                    developer.DaysSummary = sum;
+                    developer.DaysSummary = Math.Round(sum, 1);
                 }
             }
 

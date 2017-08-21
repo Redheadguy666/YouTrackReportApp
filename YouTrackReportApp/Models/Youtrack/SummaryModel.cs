@@ -9,9 +9,9 @@ namespace YouTrackReports.Models.Youtrack
     public class SummaryModel
     {
         public int SumPlanningMark { get; set; }
-        public float SumActualMark { get; set; }
+        public double SumActualMark { get; set; }
         public int DevelopersCount { get; set; }
-        public float AverageParticipationDegree { get; set; }
+        public double AverageParticipationDegree { get; set; }
         public void Initialize(IssueModel issue)
         {
             this.SumPlanningMark += issue.PlanningMark;

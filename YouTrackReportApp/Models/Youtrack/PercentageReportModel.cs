@@ -19,13 +19,13 @@ namespace YouTrackReports.Models.Youtrack
     public class WorkingProject
     {   
         public string Name { get; set; }
-        public List<float> WorkingDays { get; set; }
+        public List<double> WorkingDays { get; set; }
         public WorkingProject()
         {
-            this.WorkingDays = new List<float>();
+            this.WorkingDays = new List<double>();
         }
 
-        public void Initialize(string projectName, List<float> workingDays)
+        public void Initialize(string projectName, List<double> workingDays)
         {
             this.Name = projectName;
             this.WorkingDays = workingDays;     

@@ -9,7 +9,7 @@ namespace YouTrackReports.Models
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        public float DaysSummary { get; set; }
+        public double DaysSummary { get; set; }
 
     }
 }
