@@ -43,3 +43,18 @@ dl.inline dd + dd {
 #yearPicker {
     width: auto
 }
+
+#datePanel table{
+    width: auto;
+}
+
+#datePanel{
+    width: 18%;
+    margin-left: 5px;
+}
+
+
+#getSecondReport{
+    float: right;
+}
+

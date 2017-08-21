@@ -71,17 +71,36 @@ export class DatePanel extends React.Component<IDatePanelProps, IDataPanelState>
         let yearsCollection: JSX.Element[] = this.years.map((year) => (<option key={year}>{year}</option>));
 
         return (
-            <div >
-                <h3>Месяц:</h3>
-                <select id="monthPicker" className="form-control" onChange={(e) => this.monthSelectChangedHandler(e)}>
-                    {monthCollection}
-                </select>
-                <h3>Год:</h3>
-                <select id="yearPicker" className="form-control" onChange={(e) => this.yearSelectChangedHandler(e)}>
-                    {yearsCollection}
-                </select>
-                <button className="btn btn-primary" onClick={this.passDateToSecondReport}>Получить отчет</button>
+            <div id="datePanel" className="container">
+                <table className="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Параметр:</th>
+                            <th>Значение:</th>
+                        </tr>
+                    </thead>
 
+                    <tbody>
+                        <tr>
+                            <td>Месяц</td>
+                            <td>
+                                <select id="monthPicker" className="form-control" onChange={(e) => this.monthSelectChangedHandler(e)}>
+                                    {monthCollection}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Год</td>
+                            <td>
+                                <select id="yearPicker" className="form-control" onChange={(e) => this.yearSelectChangedHandler(e)}>
+                                    {yearsCollection}
+                                </select>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <button id="getSecondReport" className="btn btn-primary" onClick={this.passDateToSecondReport}>Получить отчет</button>
             </div>
         );
     }

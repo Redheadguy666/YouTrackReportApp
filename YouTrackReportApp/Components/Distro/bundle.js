@@ -26050,12 +26050,22 @@ class DatePanel extends React.Component {
     render() {
         let monthCollection = this.months.map((month) => (React.createElement("option", { key: month }, month)));
         let yearsCollection = this.years.map((year) => (React.createElement("option", { key: year }, year)));
-        return (React.createElement("div", null,
-            React.createElement("h3", null, "\u041C\u0435\u0441\u044F\u0446:"),
-            React.createElement("select", { id: "monthPicker", className: "form-control", onChange: (e) => this.monthSelectChangedHandler(e) }, monthCollection),
-            React.createElement("h3", null, "\u0413\u043E\u0434:"),
-            React.createElement("select", { id: "yearPicker", className: "form-control", onChange: (e) => this.yearSelectChangedHandler(e) }, yearsCollection),
-            React.createElement("button", { className: "btn btn-primary", onClick: this.passDateToSecondReport }, "\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u043E\u0442\u0447\u0435\u0442")));
+        return (React.createElement("div", { id: "datePanel", className: "container" },
+            React.createElement("table", { className: "table table-striped" },
+                React.createElement("thead", null,
+                    React.createElement("tr", null,
+                        React.createElement("th", null, "\u041F\u0430\u0440\u0430\u043C\u0435\u0442\u0440:"),
+                        React.createElement("th", null, "\u0417\u043D\u0430\u0447\u0435\u043D\u0438\u0435:"))),
+                React.createElement("tbody", null,
+                    React.createElement("tr", null,
+                        React.createElement("td", null, "\u041C\u0435\u0441\u044F\u0446"),
+                        React.createElement("td", null,
+                            React.createElement("select", { id: "monthPicker", className: "form-control", onChange: (e) => this.monthSelectChangedHandler(e) }, monthCollection))),
+                    React.createElement("tr", null,
+                        React.createElement("td", null, "\u0413\u043E\u0434"),
+                        React.createElement("td", null,
+                            React.createElement("select", { id: "yearPicker", className: "form-control", onChange: (e) => this.yearSelectChangedHandler(e) }, yearsCollection))))),
+            React.createElement("button", { id: "getSecondReport", className: "btn btn-primary", onClick: this.passDateToSecondReport }, "\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u043E\u0442\u0447\u0435\u0442")));
     }
 }
 exports.DatePanel = DatePanel;
