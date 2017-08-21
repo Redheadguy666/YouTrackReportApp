@@ -57,6 +57,8 @@ export class ProjectInfo extends React.Component<IProjectInfoProps, {}>
             versions: this.state.currentProjectVersion
         }
 
+        $("#firstReportSpinner").show();
+
         $.post("YouTrackData/GetReport", project, (response) => {
             this.passReportToContent(response);
         }, "json");

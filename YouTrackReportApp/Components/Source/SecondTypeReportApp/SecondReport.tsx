@@ -12,11 +12,18 @@ interface ISecondReportState
 export class SecondReport extends React.Component<{}, ISecondReportState>
 {
     getSecondReport(date: DateModel) {
+
+        $("#firstReportSpinner").show();
+
         $.post("YouTrackData/GetPercentageReport", date, (data) => {
             this.setState({
                 secondReport: data
-            });
+            }, this.hideSpinner);
         }, "json")
+    }
+
+    hideSpinner() {
+        $("#firstReportSpinner").hide();
     }
 
     constructor(props: any) {

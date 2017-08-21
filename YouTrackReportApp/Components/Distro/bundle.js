@@ -25894,7 +25894,10 @@ class FirstReport extends React.Component {
     getReports(recievedReport) {
         this.setState({
             report: recievedReport
-        });
+        }, this.hideSpinner);
+    }
+    hideSpinner() {
+        $("#firstReportSpinner").hide();
     }
     render() {
         let tableData = this.state.report ? this.state.report.tableDataInformation
@@ -25950,6 +25953,7 @@ class ProjectInfo extends React.Component {
             name: this.state.currentProject,
             versions: this.state.currentProjectVersion
         };
+        $("#firstReportSpinner").show();
         $.post("YouTrackData/GetReport", project, (response) => {
             this.passReportToContent(response);
         }, "json");
@@ -26038,7 +26042,8 @@ class ReportTable extends React.Component {
                             React.createElement("th", null, "\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u0447\u0438\u043A"),
                             React.createElement("th", null, "\u041E\u0431\u044A\u0435\u043C \u0440\u0430\u0431\u043E\u0442, \u0447\u0435\u043B/\u0434\u043D\u0435\u0439"),
                             React.createElement("th", null, "\u0421\u0442\u0435\u043F\u0435\u043D\u044C \u0443\u0447\u0430\u0441\u0442\u0438\u044F"))),
-                    React.createElement("tbody", null, table)))));
+                    React.createElement("tbody", null, table)),
+                React.createElement("img", { id: "firstReportSpinner", src: "/Content/ajax-loader.gif", style: { "display": "none" } }))));
     }
 }
 exports.ReportTable = ReportTable;
@@ -26086,11 +26091,15 @@ const DatePanel_1 = __webpack_require__(231);
 const SecondReportTable_1 = __webpack_require__(232);
 class SecondReport extends React.Component {
     getSecondReport(date) {
+        $("#firstReportSpinner").show();
         $.post("YouTrackData/GetPercentageReport", date, (data) => {
             this.setState({
                 secondReport: data
-            });
+            }, this.hideSpinner);
         }, "json");
+    }
+    hideSpinner() {
+        $("#firstReportSpinner").hide();
     }
     constructor(props) {
         super(props);
@@ -26207,7 +26216,8 @@ class SecondReportTable extends React.Component {
                         React.createElement("th", null, "\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u0447\u0438\u043A"),
                         workingProjects,
                         React.createElement("th", null, "\u0418\u0442\u043E\u0433\u043E"))),
-                React.createElement("tbody", null, developers))));
+                React.createElement("tbody", null, developers)),
+            React.createElement("img", { id: "firstReportSpinner", src: "/Content/ajax-loader.gif", style: { "display": "none" } })));
     }
 }
 exports.SecondReportTable = SecondReportTable;

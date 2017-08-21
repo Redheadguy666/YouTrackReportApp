@@ -33,7 +33,11 @@ export class FirstReport extends React.Component<{}, {}>
     getReports(recievedReport: ReportModel) {
         this.setState({
             report: recievedReport
-        })
+        }, this.hideSpinner)
+    }
+
+    hideSpinner() {
+        $("#firstReportSpinner").hide();
     }
 
     render() {

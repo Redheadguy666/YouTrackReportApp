@@ -53,6 +53,7 @@ export class SecondReportTable extends React.Component<ISecondReportProps, {}>
                         {developers}
                     </tbody>
                 </table>
+                <img id="firstReportSpinner" src="/Content/ajax-loader.gif" style={{ "display": "none" }} />
             </div>
         );
     }

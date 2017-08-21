@@ -76,6 +76,7 @@ export class ReportTable extends React.Component<IReportTableProps, {}>
                                 {table}
                             </tbody>
                     </table>
+                    <img id="firstReportSpinner" src="/Content/ajax-loader.gif" style={{ "display": "none" }} />
                 </div>
             </div>
         );
