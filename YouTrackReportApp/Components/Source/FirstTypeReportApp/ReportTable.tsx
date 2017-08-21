@@ -58,23 +58,25 @@ export class ReportTable extends React.Component<IReportTableProps, {}>
         let buttonState = !this.props.employmentTable;
 
         return (
-            <div className="container">
-                <h4>Индивидуальная занятость и степень участия:
-                    <span><button disabled={buttonState} id="excelExportButton" onClick={() => this.exportToExcel(this.props.employmentTable)} className="btn btn-sm btn-primary">Экспорт в Excel</button></span>
-                </h4>
-                <table className="table table-bordered" id="employersTable">
-                    <thead>
-                        <tr>
-                            <th>№</th>
-                            <th>Разработчик</th>
-                            <th>Объем работ, чел/дней</th>
-                            <th>Степень участия</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            {table}
-                        </tbody>
-                </table>
+            <div id="employeeTable">
+                <div className="container">
+                    <h4>Индивидуальная занятость и степень участия:
+                        <span><button disabled={buttonState} id="excelExportButton" onClick={() => this.exportToExcel(this.props.employmentTable)} className="btn btn-sm btn-primary">Экспорт в Excel</button></span>
+                    </h4>
+                    <table className="table table-bordered" id="employersTable">
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>Разработчик</th>
+                                <th>Объем работ, чел/дней</th>
+                                <th>Степень участия</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {table}
+                            </tbody>
+                    </table>
+                </div>
             </div>
         );
     }

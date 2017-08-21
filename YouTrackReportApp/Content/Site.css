@@ -11,23 +11,35 @@ dl.inline dd + dd {
     float: none
 }
 
-#excelExportButton{
-    
+#projectInfo table{
+    width: auto;
+    margin-bottom: 5px;
 }
 
 #projectInfo{
-    width: auto;
-    margin: auto
+    margin-left: 5px;
 }
 
-#getReportButton{
-    margin-left:inherit
+#projectContent {
+    width: 30%;
 }
 
-#monthPicker{
-    width:auto
+#employeeTable table {
+    margin: auto;
 }
 
-#yearPicker{
-    width:auto
+#excelExportButton {
+    float: right;
+}
+
+#getReportButton {
+    float: right;
+}
+
+#monthPicker {
+    width: auto
+}
+
+#yearPicker {
+    width: auto
 }

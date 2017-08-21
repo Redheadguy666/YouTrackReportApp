@@ -73,33 +73,35 @@ export class ProjectInfo extends React.Component<IProjectInfoProps, {}>
         let buttonState = !(this.state.currentProject && this.state.currentProjectVersion);
         return (
             <div id="projectInfo" className="container ">
-                <table className="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Параметр</th>
-                            <th>Значение</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td className="col-md-offset-6">Проект:</td>
-                            <td>
-                                <select className="form-control" onChange={this.handleProjectSelectChanged}>
-                                    {projects}
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Версия продукта:</td>
-                            <td>
-                                <select className="form-control" onChange={this.handleProjectVersionSelectChanged}>
-                                    {projectVersions}
-                                </select>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <button id="getReportButton" className="btn btn-primary" disabled={buttonState} onClick={this.getReportForProject}>Получить отчет</button>
+                <div id="projectContent">
+                    <table className="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Параметр</th>
+                                <th>Значение</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td className="col-md-offset-6">Проект:</td>
+                                <td>
+                                    <select className="form-control" onChange={this.handleProjectSelectChanged}>
+                                        {projects}
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Версия продукта:</td>
+                                <td>
+                                    <select className="form-control" onChange={this.handleProjectVersionSelectChanged}>
+                                        {projectVersions}
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button id="getReportButton" className="btn btn-primary" disabled={buttonState} onClick={this.getReportForProject}>Получить отчет</button>
+                </div>
             </div>
         );
     }
