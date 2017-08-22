@@ -12,6 +12,7 @@ using YouTrackSharp.Projects;
 using Newtonsoft.Json;
 using YouTrackReports.Models;
 using YouTrackReports.Services;
+using System.Collections.Generic;
 
 namespace YouTrackReportsApp.Controllers
 {
@@ -55,6 +56,18 @@ namespace YouTrackReportsApp.Controllers
         {
             var percentageReport = this.PercentageReportService.GetPercentageReport(date);
             return this.JsonSerializeObject(percentageReport);
+        }
+
+        [ActionName("GenerateExcel")]
+        public void GenerateExcel(ReportModel report)
+        {
+            Response.ContentType = "text/csv";
+            Response.AddHeader("Content-Disposition", "attachment;filename=Report.csv");
+            Response.ContentEncoding = System.Text.Encoding.Default;
+
+            var excelReport = this.ReportService.GenerateExcel(report);
+
+            Response.BinaryWrite(excelReport);
         }
 
         private string JsonSerializeObject(object data)

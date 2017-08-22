@@ -1,10 +1,14 @@
-﻿using Ninject;
+﻿using CsvHelper;
+using CsvHelper.Configuration;
+using Ninject;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using YouTrackReports.Models;
 using YouTrackReports.Models.Youtrack;
+using YouTrackReports.Services;
 using YouTrackReportsApp.Models;
 using YouTrackReportsApp.Services;
 using YouTrackSharp.Projects;
@@ -77,6 +81,36 @@ namespace YouTrackReportsApp.Services
             }
 
             return projectModels;
+        }
+        public byte[] GenerateExcel(ReportModel report)
+        {
+            var currentEncoding = System.Text.Encoding.Default;
+
+            var memoryStream = new MemoryStream();
+
+            using (var sw = new StreamWriter(memoryStream, currentEncoding))
+            {
+                var settings = new CsvConfiguration()
+                {
+                    Delimiter = ";",
+                    Encoding = System.Text.Encoding.Default
+                };
+
+                settings.RegisterClassMap(new CsvPropertiesMapper());
+
+                var csvWriter = new CsvWriter(sw, settings);
+                csvWriter.WriteHeader(typeof(IndividualEmploymentModel));
+
+                foreach (var developer in report.TableDataInformation.IndividualEmploymentModel)
+                {
+                    csvWriter.WriteRecord(developer);
+                }
+            }
+
+            var array = memoryStream.ToArray();
+            memoryStream.Close();
+
+            return array;
         }
     }
 }

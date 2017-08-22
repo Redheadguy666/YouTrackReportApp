@@ -1,6 +1,8 @@
 ﻿import * as React from "react";
 
 import { IndividualEmploymentModel } from "../../Models/ReportModel";
+import { IndividualEmploymentTable } from "../../Models/ReportModel";
+import { ReportModel } from "../../Models/ReportModel";
 
 interface IReportTableProps
 {
@@ -15,34 +17,44 @@ export class ReportTable extends React.Component<IReportTableProps, {}>
         super(props);
     }
 
-    exportToExcel(tableData: IndividualEmploymentModel[]) {
-        let csv = "data:text/csv"
-        let header = "№;Разработчик;Объем работ, чел/дней;Степень участия;" + "\n";
+    exportToExcel(tableData_: IndividualEmploymentModel[]) {
+        //let csv = "data:text/csv"
+        //let header = "№;Разработчик;Объем работ, чел/дней;Степень участия;" + "\n";
         
-        csv += header;
+        //csv += header;
 
-        let rowString = "";
+        //let rowString = "";
 
-        tableData.forEach(function (row, index) {
-            let rowString = String(row.id) + ";" + row.developer + ";" +
-                row.scopeOfWork + ";" + row.participationDegree;
-            csv += index < tableData.length ? rowString + "\n" : rowString;
-        });
+        //tableData.forEach(function (row, index) {
+        //    let rowString = String(row.id) + ";" + row.developer + ";" +
+        //        row.scopeOfWork + ";" + row.participationDegree;
+        //    csv += index < tableData.length ? rowString + "\n" : rowString;
+        //});
 
-        let encodedUri = encodeURI(csv);
-        let downloadLink = document.createElement("a");
+        //let encodedUri = encodeURI(csv);
+        //let downloadLink = document.createElement("a");
 
-        let date = new Date();
-        let dd = date.getDate();
-        let mm = date.getMonth() + 1;
-        let yyyy = date.getFullYear();
-        let today = dd + "-" + mm + "-" + yyyy;
-        let fileName = "Отчет от " + today + ".csv";
+        //let date = new Date();
+        //let dd = date.getDate();
+        //let mm = date.getMonth() + 1;
+        //let yyyy = date.getFullYear();
+        //let today = dd + "-" + mm + "-" + yyyy;
+        //let fileName = "Отчет от " + today + ".csv";
 
-        downloadLink.setAttribute("href", encodedUri);
-        downloadLink.setAttribute("download", fileName)
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
+        //downloadLink.setAttribute("href", encodedUri);
+        //downloadLink.setAttribute("download", fileName)
+        //document.body.appendChild(downloadLink);
+        //downloadLink.click();
+
+        let table: IndividualEmploymentTable = {
+            individualEmploymentModel: tableData_
+        }
+
+        let tableData: ReportModel = {
+            tableDataInformation: table
+        }
+
+        $.post("YouTrackData/GenerateExcel", tableData, () => (alert("fdsf")), "json");
     }
 
     render() {

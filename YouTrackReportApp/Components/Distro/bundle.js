@@ -25997,28 +25997,35 @@ class ReportTable extends React.Component {
         super(props);
         this.props = {};
     }
-    exportToExcel(tableData) {
-        let csv = "data:text/csv";
-        let header = "№;Разработчик;Объем работ, чел/дней;Степень участия;" + "\n";
-        csv += header;
-        let rowString = "";
-        tableData.forEach(function (row, index) {
-            let rowString = String(row.id) + ";" + row.developer + ";" +
-                row.scopeOfWork + ";" + row.participationDegree;
-            csv += index < tableData.length ? rowString + "\n" : rowString;
-        });
-        let encodedUri = encodeURI(csv);
-        let downloadLink = document.createElement("a");
-        let date = new Date();
-        let dd = date.getDate();
-        let mm = date.getMonth() + 1;
-        let yyyy = date.getFullYear();
-        let today = dd + "-" + mm + "-" + yyyy;
-        let fileName = "Отчет от " + today + ".csv";
-        downloadLink.setAttribute("href", encodedUri);
-        downloadLink.setAttribute("download", fileName);
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
+    exportToExcel(tableData_) {
+        //let csv = "data:text/csv"
+        //let header = "№;Разработчик;Объем работ, чел/дней;Степень участия;" + "\n";
+        //csv += header;
+        //let rowString = "";
+        //tableData.forEach(function (row, index) {
+        //    let rowString = String(row.id) + ";" + row.developer + ";" +
+        //        row.scopeOfWork + ";" + row.participationDegree;
+        //    csv += index < tableData.length ? rowString + "\n" : rowString;
+        //});
+        //let encodedUri = encodeURI(csv);
+        //let downloadLink = document.createElement("a");
+        //let date = new Date();
+        //let dd = date.getDate();
+        //let mm = date.getMonth() + 1;
+        //let yyyy = date.getFullYear();
+        //let today = dd + "-" + mm + "-" + yyyy;
+        //let fileName = "Отчет от " + today + ".csv";
+        //downloadLink.setAttribute("href", encodedUri);
+        //downloadLink.setAttribute("download", fileName)
+        //document.body.appendChild(downloadLink);
+        //downloadLink.click();
+        let table = {
+            individualEmploymentModel: tableData_
+        };
+        let tableData = {
+            tableDataInformation: table
+        };
+        $.post("YouTrackData/GenerateExcel", tableData, () => (alert("fdsf")), "json");
     }
     render() {
         let table = this.props.employmentTable ? this.props.employmentTable.map((employer) => React.createElement("tr", null,
