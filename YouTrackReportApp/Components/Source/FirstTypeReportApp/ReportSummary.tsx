@@ -15,10 +15,10 @@ export class ReportSummary extends React.Component<IReportSummaryProps, {}>
         return (
             <div className="container">
                 <dl className="inline text-center">
-                    <dt>Общая плановая трудоемкость разработки(ч/д):</dt> <dd>{summary ? summary.sumPlanningMark : null}</dd>
-                    <dt>Общая фактическая трудоемкость разработки(ч/д):</dt> <dd>{summary ? summary.sumActualMark : null}</dd>
-                    <dt>Количество участников разработки:</dt> <dd>{summary ? summary.developersCount : null}</dd>
-                    <dt>Средняя степень участия:</dt> <dd>{summary ? summary.averageParticipationDegree : null}</dd>
+                    <dt>Общая плановая трудоемкость разработки(часы): </dt> <dd>{summary ? summary.sumPlanningMark : null}</dd>
+                    <dt>Общая фактическая трудоемкость разработки(часы): </dt> <dd>{summary ? summary.sumActualMark : null}</dd>
+                    <dt>Количество участников разработки: </dt> <dd>{summary ? summary.developersCount : null}</dd>
+                    <dt>Средняя степень участия: </dt> <dd>{summary ? summary.averageParticipationDegree : null}</dd>
                 </dl>
             </div>
         );

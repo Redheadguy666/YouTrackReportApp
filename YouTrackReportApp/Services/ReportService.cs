@@ -1,6 +1,7 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
 using Ninject;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -37,7 +38,7 @@ namespace YouTrackReportsApp.Services
                     new IndividualEmploymentModel()
                     {
                         Developer = l.First().Author,
-                        ScopeOfWork = l.Sum(m => m.Duration)
+                        ScopeOfWork = l.Sum(m => Math.Round(m.Duration / 60, 1))
                     }
                 )
                 .OrderByDescending(l => l.ScopeOfWork)
@@ -47,7 +48,7 @@ namespace YouTrackReportsApp.Services
             var developersCount = authorWorkItems.Count;
             var averageParticipationDegree = sumScopeOfWork / developersCount;
 
-            var sumPlannigMark = issues.Sum(l => l.PlanningMark);
+            var sumPlannigMark = issues.Sum(l => l.PlanningMark / 60);
 
             var position = 1;
 

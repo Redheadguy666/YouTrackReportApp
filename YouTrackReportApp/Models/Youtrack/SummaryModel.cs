@@ -8,7 +8,7 @@ namespace YouTrackReports.Models.Youtrack
 {
     public class SummaryModel
     {
-        public int SumPlanningMark { get; set; }
+        public double SumPlanningMark { get; set; }
         public double SumActualMark { get; set; }
         public int DevelopersCount { get; set; }
         public double AverageParticipationDegree { get; set; }

@@ -26047,7 +26047,7 @@ class ReportTable extends React.Component {
                         React.createElement("tr", null,
                             React.createElement("th", null, "\u2116"),
                             React.createElement("th", null, "\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u0447\u0438\u043A"),
-                            React.createElement("th", null, "\u041E\u0431\u044A\u0435\u043C \u0440\u0430\u0431\u043E\u0442, \u0447\u0435\u043B/\u0434\u043D\u0435\u0439"),
+                            React.createElement("th", null, "\u041E\u0431\u044A\u0435\u043C \u0440\u0430\u0431\u043E\u0442, \u0447\u0430\u0441\u044B"),
                             React.createElement("th", null, "\u0421\u0442\u0435\u043F\u0435\u043D\u044C \u0443\u0447\u0430\u0441\u0442\u0438\u044F"))),
                     React.createElement("tbody", null, table)),
                 React.createElement("img", { id: "firstReportSpinner", src: "/Content/ajax-loader.gif", style: { "display": "none" } }))));
@@ -26069,16 +26069,16 @@ class ReportSummary extends React.Component {
         let summary = this.props.reportSummary;
         return (React.createElement("div", { className: "container" },
             React.createElement("dl", { className: "inline text-center" },
-                React.createElement("dt", null, "\u041E\u0431\u0449\u0430\u044F \u043F\u043B\u0430\u043D\u043E\u0432\u0430\u044F \u0442\u0440\u0443\u0434\u043E\u0435\u043C\u043A\u043E\u0441\u0442\u044C \u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0438(\u0447/\u0434):"),
+                React.createElement("dt", null, "\u041E\u0431\u0449\u0430\u044F \u043F\u043B\u0430\u043D\u043E\u0432\u0430\u044F \u0442\u0440\u0443\u0434\u043E\u0435\u043C\u043A\u043E\u0441\u0442\u044C \u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0438(\u0447\u0430\u0441\u044B): "),
                 " ",
                 React.createElement("dd", null, summary ? summary.sumPlanningMark : null),
-                React.createElement("dt", null, "\u041E\u0431\u0449\u0430\u044F \u0444\u0430\u043A\u0442\u0438\u0447\u0435\u0441\u043A\u0430\u044F \u0442\u0440\u0443\u0434\u043E\u0435\u043C\u043A\u043E\u0441\u0442\u044C \u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0438(\u0447/\u0434):"),
+                React.createElement("dt", null, "\u041E\u0431\u0449\u0430\u044F \u0444\u0430\u043A\u0442\u0438\u0447\u0435\u0441\u043A\u0430\u044F \u0442\u0440\u0443\u0434\u043E\u0435\u043C\u043A\u043E\u0441\u0442\u044C \u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0438(\u0447\u0430\u0441\u044B): "),
                 " ",
                 React.createElement("dd", null, summary ? summary.sumActualMark : null),
-                React.createElement("dt", null, "\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0443\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u043E\u0432 \u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0438:"),
+                React.createElement("dt", null, "\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0443\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u043E\u0432 \u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0438: "),
                 " ",
                 React.createElement("dd", null, summary ? summary.developersCount : null),
-                React.createElement("dt", null, "\u0421\u0440\u0435\u0434\u043D\u044F\u044F \u0441\u0442\u0435\u043F\u0435\u043D\u044C \u0443\u0447\u0430\u0441\u0442\u0438\u044F:"),
+                React.createElement("dt", null, "\u0421\u0440\u0435\u0434\u043D\u044F\u044F \u0441\u0442\u0435\u043F\u0435\u043D\u044C \u0443\u0447\u0430\u0441\u0442\u0438\u044F: "),
                 " ",
                 React.createElement("dd", null, summary ? summary.averageParticipationDegree : null))));
     }

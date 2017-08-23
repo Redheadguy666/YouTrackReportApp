@@ -10,7 +10,8 @@ namespace YouTrackReportsApp.Models
 {
     public class IssueModel
     {
-        public int PlanningMark { get; set; }
+        public string Id { get; set; }
+        public double PlanningMark { get; set; }
         public int ActualMark { get; set; }
         public string ProjectShortName { get; set; }
         public List<WorkItemModel> WorkItems { get; set; }
@@ -21,6 +22,7 @@ namespace YouTrackReportsApp.Models
         public void Initialize(dynamic issue, IConnection connection)
         {
             this.ProjectShortName = issue.projectShortName ?? String.Empty;
+            this.Id = issue.Id;
 
             try
             {

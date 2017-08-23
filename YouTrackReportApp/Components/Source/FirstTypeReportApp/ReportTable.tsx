@@ -80,7 +80,7 @@ export class ReportTable extends React.Component<IReportTableProps, {}>
                             <tr>
                                 <th>№</th>
                                 <th>Разработчик</th>
-                                <th>Объем работ, чел/дней</th>
+                                <th>Объем работ, часы</th>
                                 <th>Степень участия</th>
                             </tr>
                             </thead>
