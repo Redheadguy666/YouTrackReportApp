@@ -24,6 +24,11 @@ namespace YouTrackReports.Services
 
             var developers = issues.SelectMany(l => l.WorkItems).Select(l => l.Author).Distinct().ToList();
 
+            var monthBegin = new DateTimeOffset(date.Year, date.Month, 1, 0, 0, 0, 0, TimeSpan.Zero);
+            var monthEnd = monthBegin.AddMonths(1);
+            var unixMonthBegin = monthBegin.ToUnixTimeMilliseconds();
+            var unixMonthEnd = monthEnd.ToUnixTimeMilliseconds();
+
             reportModel.Developers = developers.Select(l => new Developer()
             {
                 Id = l,
@@ -41,8 +46,10 @@ namespace YouTrackReports.Services
                 // WorkItems всех IssueModel текущего проекта
                 var workItems = projectItem.Value.SelectMany(l => l.WorkItems).ToList();
 
+                var workItemsByDate = workItems.FindAll(l => l.Date >= unixMonthBegin && l.Date < unixMonthEnd);
+
                 // Тут содержатся рабочие дни для ВСЕХ разработчиков ОДНОГО проекта
-                var workItemsByAuthor = workItems
+                var workItemsByAuthor = workItemsByDate
                     .GroupBy(l => l.Author)
                     .ToDictionary(l => l.Key, l => l.Sum(m => m.Duration) / MinutesInDay);
                 

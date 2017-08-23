@@ -54,7 +54,7 @@ namespace YouTrackReportsApp.Services
 
             foreach (var project in allProjects)
             {
-                var query = "#{" + project.Name + "}" + " создана: " + year + "-" + month;
+                var query = "#{" + project.Name + "}";
 
                 var issues = issuesManager.GetIssuesBySearch(query).ToList();
 
