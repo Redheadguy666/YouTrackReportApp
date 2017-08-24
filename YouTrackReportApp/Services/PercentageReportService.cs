@@ -25,7 +25,7 @@ namespace YouTrackReports.Services
             var developers = issues.SelectMany(l => l.WorkItems).Select(l => l.Author).Distinct().ToList();
 
             var monthBegin = new DateTimeOffset(date.Year, date.Month, 1, 0, 0, 0, 0, TimeSpan.Zero);
-            var monthEnd = monthBegin.AddMonths(1);
+            var monthEnd = monthBegin.AddMonths(1).Subtract(new TimeSpan(1, 0, 0, 0));
             var unixMonthBegin = monthBegin.ToUnixTimeMilliseconds();
             var unixMonthEnd = monthEnd.ToUnixTimeMilliseconds();
 
